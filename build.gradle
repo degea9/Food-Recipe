@@ -13,6 +13,10 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+plugins{
+    id "org.jlleitschuh.gradle.ktlint" version "9.3.0"
+}
+
 
 allprojects {
     repositories {
@@ -20,6 +24,19 @@ allprojects {
         jcenter()
     }
 }
+
+subprojects {
+    apply plugin : Plugins.KTLINT // Version should be inherited from parent
+    // KtLint Configurations
+    ktlint {
+        debug.set(true)
+        verbose.set(true)
+        android.set(true)
+        outputToConsole.set(true)
+    }
+
+}
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
