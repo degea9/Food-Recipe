@@ -1,0 +1,14 @@
+plugins {
+    id 'kotlin'
+}
+
+
+dependencies {
+    //KOTLIN
+    implementation (Deps.KOTLIN)
+    //NETWORK
+    implementation(Deps.RETROFIT)
+    implementation(Deps.RETROFIT_MOSHI_CONVERTER)
+    //MOSHI
+
+}

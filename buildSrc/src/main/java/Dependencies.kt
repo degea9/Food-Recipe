@@ -111,8 +111,8 @@ object Deps {
 
     // Retrofit
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Version.RETROFIT_VERSION}"
-    const val RETROFIT_GSON_CONVERTER =
-        "com.squareup.retrofit2:converter-gson:${Version.RETROFIT_VERSION}"
+    const val RETROFIT_MOSHI_CONVERTER =
+        "com.squareup.retrofit2:converter-moshi:${Version.RETROFIT_VERSION}"
     const val RETROFIT_RX_JAVA2_ADAPTER = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
     const val RETROFIT_RX_JAVA3_ADAPTER =
         "com.squareup.retrofit2:adapter-rxjava3:${Version.RETROFIT_RXJAVA3_ADAPTER}"
@@ -122,8 +122,8 @@ object Deps {
 
     const val OK_HTTP3 = "com.squareup.okhttp3:okhttp:${Version.OK_HTTP3_VERSION}"
 
-    // Gson
-    const val GSON = "com.google.code.gson:gson:${Version.GSON_VERSION}"
+    // MOSHI
+    const val MOSHI = "com.squareup.moshi:moshi:${Version.MOSHI_VERSION}"
 
     // Room
     const val ROOM_RUNTIME = "androidx.room:room-runtime:${Version.ROOM_VERSION}"
@@ -191,9 +191,6 @@ object TestDeps {
     // MockWebServer
     const val MOCK_WEB_SERVER =
         "com.squareup.okhttp3:mockwebserver:${TestVersion.mockWebServerVersion}"
-
-    // Gson
-    const val GSON = "com.google.code.gson:gson:${Version.GSON_VERSION}"
 
     // MockK
     const val MOCK_K = "io.mockk:mockk:${TestVersion.mockKVersion}"

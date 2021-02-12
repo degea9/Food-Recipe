@@ -62,7 +62,7 @@ object Version {
     const val MOCK_WEB_SERVER_VERSION = "3.7.0"
 
     //Gson
-    const val GSON_VERSION = "2.8.4"
+    const val MOSHI_VERSION = "1.11.0"
 
     // Room
     const val ROOM_VERSION = "2.3.0-alpha02"
