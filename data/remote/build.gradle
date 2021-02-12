@@ -1,7 +1,39 @@
 plugins {
-    id 'kotlin'
+    id 'com.android.library'
+    id 'kotlin-android'
 }
 
+android {
+    compileSdkVersion(AndroidVersion.COMPILE_SDK_VERSION)
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+
+        
+
+        minSdkVersion(AndroidVersion.MIN_SDK_VERSION)
+        targetSdkVersion(AndroidVersion.TARGET_SDK_VERSION)
+        versionCode  = AndroidVersion.VERSION_CODE
+        versionName = AndroidVersion.VERSION_NAME
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
 
 dependencies {
     //KOTLIN
