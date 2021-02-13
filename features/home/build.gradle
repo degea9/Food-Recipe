@@ -35,6 +35,7 @@ android {
 dependencies {
 
     //project dependencies
+    implementation(project(Modules.libraryBase))
     implementation(project(Modules.libraryRemote))
 
     implementation (Deps.KOTLIN)
@@ -42,9 +43,13 @@ dependencies {
     implementation (Deps.APPCOMPAT)
     implementation (Deps.MATERIAL)
     implementation (Deps.CONSTRAINT_LAYOUT)
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    // Coroutines
+    implementation(Deps.COROUTINES_CORE)
+    implementation(Deps.COROUTINES_ANDROID)
+    //life cycle and viewmodel
+    implementation(Deps.LIFECYCLE_LIVEDATA_KTX)
+    implementation(Deps.LIFECYCLE_VIEWMODEL_KTX)
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation (TestDeps.ANDROIDX_JUNIT)
     androidTestImplementation (TestDeps.ANDROIDX_ESPRESSO)

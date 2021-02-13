@@ -1,2 +1,2 @@
-include ':app',':features:home',':data:remote'
+include ':app',':features:home',':data:remote',':base'
 rootProject.name = "Food Recipe"

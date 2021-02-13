@@ -4,6 +4,7 @@ object Modules {
     val featureHome = ":features:home"
     val featureDetail = ":features:detail"
     val libraryRemote = ":data:remote"
+    val libraryBase = ":base"
 
     object AndroidLibrary {
         const val CORE = ":libraries:core"

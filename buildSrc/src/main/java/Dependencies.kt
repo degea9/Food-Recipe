@@ -122,6 +122,10 @@ object Deps {
 
     const val OK_HTTP3 = "com.squareup.okhttp3:okhttp:${Version.OK_HTTP3_VERSION}"
 
+    //http logging
+    val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Version.OK_HTTP3_VERSION}"
+
+
     // MOSHI
     const val MOSHI = "com.squareup.moshi:moshi:${Version.MOSHI_VERSION}"
 
