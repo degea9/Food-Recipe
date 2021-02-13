@@ -3,6 +3,7 @@ object Modules {
     const val APP = ":app"
     val featureHome = ":features:home"
     val featureDetail = ":features:detail"
+    val libraryRemote = ":data:remote"
 
     object AndroidLibrary {
         const val CORE = ":libraries:core"
