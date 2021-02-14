@@ -5,6 +5,7 @@ object Modules {
     val featureDetail = ":features:detail"
     val repository = ":data:repository"
     val remote = ":data:remote"
+    val domain = ":domain"
     val base = ":base"
 
     object AndroidLibrary {

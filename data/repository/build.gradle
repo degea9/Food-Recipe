@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 29
@@ -35,4 +36,9 @@ android {
 dependencies {
     // MODULES
     implementation project(Modules.remote)
+    implementation project(Modules.domain)
+    implementation (Deps.ANDROIDX_CORE_KTX)
+}
+repositories {
+    mavenCentral()
 }

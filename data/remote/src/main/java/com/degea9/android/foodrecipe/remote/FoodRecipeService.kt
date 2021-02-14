@@ -17,6 +17,15 @@ interface FoodRecipeService {
         @Query("type") type: String?,
         @Query("addRecipeInformation") addRecipeInformation: Boolean? = true
     ): ListRecipeResponse
+
+    @GET("recipes/complexSearch")
+    suspend fun getPopularRecipe(
+        @Query("apiKey") apiKey: String,
+        @Query("query") query: String?,
+        @Query("type") type: String?,
+        @Query("sort") sort: String? = "popularity",
+        @Query("addRecipeInformation") addRecipeInformation: Boolean? = true
+    ): ListRecipeResponse
 }
 
 private val httpLogginInterceptor =
