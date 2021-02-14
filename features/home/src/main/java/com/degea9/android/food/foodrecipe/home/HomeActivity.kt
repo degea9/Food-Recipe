@@ -1,11 +1,8 @@
 package com.degea9.android.food.foodrecipe.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.degea9.android.foodrecipe.base.BaseActivity
-import com.degea9.android.foodrecipe.remote.BuildConfig
-import com.degea9.foodrecipe.remote.FoodRecipeApi
 
 class HomeActivity : BaseActivity() {
 
