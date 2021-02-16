@@ -35,8 +35,8 @@ android {
 dependencies {
 
     //project dependencies
-    implementation(project(Modules.base))
-    implementation(project(Modules.repository))
+    implementation(project(Modules.core))
+    implementation(project(Modules.domain))
 
     implementation (Deps.KOTLIN)
     implementation (Deps.ANDROIDX_CORE_KTX)

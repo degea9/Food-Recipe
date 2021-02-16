@@ -2,8 +2,9 @@ package com.degea9.android.foodrecipe.repository.mapper
 
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.foodrecipe.remote.response.RecipeResponse
+import javax.inject.Inject
 
-class RecipeDataListMapper : ListMapper<RecipeResponse, Recipe> {
+class RecipeDataListMapper @Inject constructor(): ListMapper<RecipeResponse, Recipe> {
     override fun map(input: List<RecipeResponse>?): List<Recipe>? {
         return input?.map { recipeDataModel ->
             Recipe(

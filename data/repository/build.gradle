@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 apply plugin: 'kotlin-android'
 
@@ -38,6 +40,9 @@ dependencies {
     implementation project(Modules.remote)
     implementation project(Modules.domain)
     implementation (Deps.ANDROIDX_CORE_KTX)
+    // Dagger Hilt
+    implementation(Deps.DAGGER_HILT_ANDROID)
+    kapt(Deps.DAGGER_HILT_COMPILER)
 }
 repositories {
     mavenCentral()

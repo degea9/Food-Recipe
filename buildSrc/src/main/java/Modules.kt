@@ -6,7 +6,7 @@ object Modules {
     val repository = ":data:repository"
     val remote = ":data:remote"
     val domain = ":domain"
-    val base = ":base"
+    val core = ":core"
 
     object AndroidLibrary {
         const val CORE = ":libraries:core"
