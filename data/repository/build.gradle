@@ -37,7 +37,7 @@ android {
 
 dependencies {
     // MODULES
-    implementation project(Modules.remote)
+    api project(Modules.remote)
     implementation project(Modules.domain)
     implementation (Deps.ANDROIDX_CORE_KTX)
     // Dagger Hilt
