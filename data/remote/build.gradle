@@ -49,7 +49,7 @@ dependencies {
     implementation(Deps.RETROFIT)
     implementation(Deps.RETROFIT_MOSHI_CONVERTER)
     //HTTP LOGGING
-    implementation(Deps.httpLoggingInterceptor)
+    api(Deps.httpLoggingInterceptor)
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
     kapt(Deps.DAGGER_HILT_COMPILER)
