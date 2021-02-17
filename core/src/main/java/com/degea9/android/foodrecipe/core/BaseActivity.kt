@@ -1,4 +1,4 @@
-package com.degea9.android.foodrecipe.base
+package com.degea9.android.foodrecipe.core
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

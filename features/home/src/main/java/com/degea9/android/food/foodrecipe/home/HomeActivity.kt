@@ -2,7 +2,7 @@ package com.degea9.android.food.foodrecipe.home
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.degea9.android.foodrecipe.base.BaseActivity
+import com.degea9.android.foodrecipe.core.BaseActivity
 
 class HomeActivity : BaseActivity() {
 
