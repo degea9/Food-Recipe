@@ -35,8 +35,8 @@ android {
 }
 
 dependencies {
-    api project(Modules.domain)
-    api project(Modules.repository)
+    implementation project(Modules.domain)
+    implementation project(Modules.repository)
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
     kapt(Deps.DAGGER_HILT_COMPILER)
