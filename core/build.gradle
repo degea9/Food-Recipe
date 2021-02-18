@@ -8,7 +8,9 @@ plugins {
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.3"
-
+//    dataBinding {
+//        enabled = true
+//    }
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 29

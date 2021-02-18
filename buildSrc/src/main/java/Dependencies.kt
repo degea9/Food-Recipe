@@ -125,6 +125,12 @@ object Deps {
     //http logging
     val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Version.OK_HTTP3_VERSION}"
 
+    //epoxy
+    const val EPOXY = "com.airbnb.android:epoxy:${Version.EPOXY_VERSION}"
+    //EPOXY annotationProcessor
+    const val EPOXY_ANNOTATION_PROCESSOR = "com.airbnb.android:epoxy-processor:${Version.EPOXY_VERSION}"
+    //EPOXY BINDING
+    const val EPOXY_BINDING = "com.airbnb.android:epoxy-databinding:${Version.EPOXY_VERSION}"
 
     // MOSHI
     const val MOSHI = "com.squareup.moshi:moshi:${Version.MOSHI_VERSION}"

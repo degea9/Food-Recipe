@@ -104,6 +104,8 @@ object Version {
     // Leak Canary
     const val LEAK_CANARY_VERSION = "2.4"
 
+    //Epoxy version
+    const val EPOXY_VERSION = "4.1.0"
 }
 
 object TestVersion {

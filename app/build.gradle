@@ -9,7 +9,9 @@ plugins {
 android {
     compileSdkVersion(AndroidVersion.COMPILE_SDK_VERSION)
     buildToolsVersion "30.0.2"
-
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId = AndroidVersion.APPLICATION_ID
         minSdkVersion(AndroidVersion.MIN_SDK_VERSION)

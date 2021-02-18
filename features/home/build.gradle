@@ -10,6 +10,10 @@ android {
     compileSdkVersion(AndroidVersion.COMPILE_SDK_VERSION)
     buildToolsVersion "30.0.3"
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         minSdkVersion(AndroidVersion.MIN_SDK_VERSION)
         targetSdkVersion(AndroidVersion.TARGET_SDK_VERSION)
@@ -32,6 +36,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    kapt {
+        correctErrorTypes = true
     }
 }
 
@@ -58,6 +65,13 @@ dependencies {
     kapt(Deps.DAGGER_HILT_COMPILER)
     implementation(Deps.DAGGER_HILT_VIEWMODEL)
     kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
+
+    //EPOXY
+    implementation(Deps.EPOXY)
+    implementation(Deps.EPOXY_BINDING)
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)
+
 
     //KTX
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)
