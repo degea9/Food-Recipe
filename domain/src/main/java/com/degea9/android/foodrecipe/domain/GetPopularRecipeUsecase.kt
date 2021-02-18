@@ -12,7 +12,7 @@ class GetPopularRecipeUsecase(
     private val dispatcherProvider: UseCaseDispatchers
 ) {
 
-    suspend operator fun invoke(): Flow<List<Recipe>> {
+     operator fun invoke(): Flow<List<Recipe>> {
         return flow {
             emit(recipeRepository.getPopularRecipes())
         }.flowOn(dispatcherProvider.ioDispatcher)
