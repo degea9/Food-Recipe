@@ -161,6 +161,9 @@ object Deps {
     const val CHUCKER_RELEASE_NO_OP =
         "com.github.chuckerteam.chucker:library-no-op:${Version.CHUCKER_VERSION}"
 
+    //timber
+    const val  TIMBER = "com.jakewharton.timber:timber:${Version.TIMBER_VERSION}"
+
     // Leak Canary
     const val LEAK_CANARY =
         "com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY_VERSION}"

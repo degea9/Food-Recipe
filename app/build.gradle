@@ -49,6 +49,9 @@ dependencies {
     implementation(Deps.DAGGER_HILT_VIEWMODEL)
     kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
 
+    //TIMBER
+    implementation(Deps.TIMBER)
+
     implementation (Deps.KOTLIN)
     implementation (Deps.ANDROIDX_CORE_KTX)
     implementation (Deps.APPCOMPAT)
