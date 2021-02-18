@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val getPopularRecipeUsecase: GetPopularRecipeUsecase):BaseViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val getPopularRecipeUsecase: GetPopularRecipeUsecase, private val savedStateHandle: SavedStateHandle):BaseViewModel() {
 
     fun getRecipe(){
         viewModelScope.launch(Dispatchers.IO) {
