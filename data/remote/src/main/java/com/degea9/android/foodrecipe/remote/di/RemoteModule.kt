@@ -17,11 +17,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RemoteModule {
+object RemoteModule {
+    private const val CLIENT_TIME_OUT = 120L
 
-    companion object {
-        private const val CLIENT_TIME_OUT = 120L
-    }
 
     @Singleton
     @Provides

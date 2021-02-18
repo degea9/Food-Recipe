@@ -13,11 +13,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
-@Module(
-    includes = [
-        CoreModule::class
-    ]
-)
+@Module
 class DomainModule {
 
     @Singleton
