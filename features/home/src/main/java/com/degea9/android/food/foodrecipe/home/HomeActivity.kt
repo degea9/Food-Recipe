@@ -50,8 +50,9 @@ class HomeActivity : BaseActivity() {
             // This extension function come with epoxy
             carousel {
                 id("recipe")
-                paddingRes(0)
-                padding(Carousel.Padding(0,0))
+                paddingRes(R.dimen.material_helper_text_font_1_3_padding_top)
+                padding(Carousel.Padding(30,30))
+                Carousel.setDefaultGlobalSnapHelperFactory(null)
                 models(carouselItemModels)
             }
         }
