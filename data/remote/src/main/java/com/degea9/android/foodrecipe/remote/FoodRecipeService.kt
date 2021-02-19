@@ -28,23 +28,6 @@ interface FoodRecipeService {
     ): ListRecipeResponse
 }
 
-private val httpLogginInterceptor =
-    HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-private val okHttpClient = OkHttpClient.Builder()
 
-private val retrofit = Retrofit.Builder()
-    .client(
-        okHttpClient.addInterceptor(
-            httpLogginInterceptor
-        ).build()
-    )
-    .addConverterFactory(MoshiConverterFactory.create())
-    .baseUrl(BuildConfig.BASE_URL_API)
-    .build()
 
-object FoodRecipeApi {
-    val retrofitService: FoodRecipeService by lazy {
-        retrofit.create(FoodRecipeService::class.java)
-    }
-}

@@ -72,6 +72,9 @@ dependencies {
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)
 
+    implementation(Deps.GLIDE)
+    kapt(Deps.GLIDE_COMPILER)
+
 
     //KTX
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)
