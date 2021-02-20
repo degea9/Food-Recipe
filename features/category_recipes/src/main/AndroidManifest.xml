@@ -2,4 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.degea9.android.food.foodrecipe.category_recipes">
 
+    <application>
+        <activity android:name=".ui.CategoryRecipesActivity"></activity>
+    </application>
+
 </manifest>

@@ -62,6 +62,9 @@ dependencies {
 
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     kapt(Deps.DAGGER_HILT_COMPILER)
     implementation(Deps.DAGGER_HILT_VIEWMODEL)
     kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
@@ -72,9 +75,12 @@ dependencies {
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)
 
+    //GLIDE
     implementation(Deps.GLIDE)
     kapt(Deps.GLIDE_COMPILER)
 
+    //PAGING
+    implementation(Deps.PAGING_RUNTIME_KTX)
 
     //KTX
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)

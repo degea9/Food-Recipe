@@ -106,6 +106,10 @@ object Version {
 
     //Epoxy version
     const val EPOXY_VERSION = "4.1.0"
+
+    //PAGING 3
+    const val PAGING_VERSION = "3.0.0-beta01"
+
 }
 
 object TestVersion {

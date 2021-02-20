@@ -27,6 +27,10 @@ object Deps {
     const val SWIPE_REFRESH_LAYOUT =
         "androidx.swiperefreshlayout:swiperefreshlayout:${Version.SWIPE_REFRESH_LAYOUT_VERSION}"
 
+    //PAGING 3
+    const val PAGING_RUNTIME = "androidx.paging:paging-runtime:${Version.PAGING_VERSION}"
+    const val PAGING_RUNTIME_KTX =  "androidx.paging:paging-runtime-ktx:${Version.PAGING_VERSION}"
+
 
     // Lifecycle, ViewModel and LiveData
 
