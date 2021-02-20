@@ -1,16 +1,53 @@
 plugins {
-    id 'java-library'
-    id 'kotlin'
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
+apply plugin: 'kotlin-android'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+android {
+    compileSdkVersion 29
+    buildToolsVersion "30.0.3"
+
+//    dataBinding {
+//        enabled = true
+//    }
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    //KOTLIN
-    implementation (Deps.KOTLIN)
-    // Coroutines
-    implementation(Deps.COROUTINES_CORE)
+    // MODULES
+    implementation (Deps.ANDROIDX_CORE_KTX)
+    // Dagger Hilt
+    implementation(Deps.DAGGER_HILT_ANDROID)
+    kapt(Deps.DAGGER_HILT_COMPILER)
+
+    //PAGING
+    implementation(Deps.PAGING_RUNTIME_KTX)
+}
+repositories {
+    mavenCentral()
 }

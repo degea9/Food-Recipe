@@ -46,6 +46,14 @@ dependencies {
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
     kapt(Deps.DAGGER_HILT_COMPILER)
+
+    //PAGING
+    implementation(Deps.PAGING_RUNTIME_KTX)
+
+    //RETROFIT
+    implementation(Deps.RETROFIT)
+    //TIMBER
+    implementation(Deps.TIMBER)
 }
 repositories {
     mavenCentral()

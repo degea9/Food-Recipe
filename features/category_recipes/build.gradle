@@ -82,6 +82,7 @@ dependencies {
     //PAGING
     implementation(Deps.PAGING_RUNTIME_KTX)
 
+
     //KTX
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)
 

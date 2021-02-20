@@ -33,6 +33,20 @@ interface FoodRecipeService {
         @Query("number") number:Int = 10,
         @Query("addRecipeInformation") addRecipeInformation: Boolean? = true
     ): ListRecipeResponse
+
+    /**
+     * get category recipes,the default sort direction is DESC and the default number items each page is 10
+     */
+    @GET("recipes/complexSearch")
+    suspend fun searchRecipes(
+        @Query("apiKey") apiKey: String,
+        @Query("query") query: String = "",
+        @Query("sort") sort: String?,
+        @Query("sortDirection") sortDirection:String = "desc",
+        @Query("offset") offset:Int,
+        @Query("number") number:Int = 10,
+        @Query("addRecipeInformation") addRecipeInformation: Boolean? = true
+    ): ListRecipeResponse
 }
 
 
