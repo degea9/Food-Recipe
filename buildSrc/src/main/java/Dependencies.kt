@@ -131,6 +131,8 @@ object Deps {
 
     //epoxy
     const val EPOXY = "com.airbnb.android:epoxy:${Version.EPOXY_VERSION}"
+    //epoxy paging
+    const val EPOXY_PAGING3 = "com.airbnb.android:epoxy-paging3:${Version.EPOXY_VERSION}"
     //EPOXY annotationProcessor
     const val EPOXY_ANNOTATION_PROCESSOR = "com.airbnb.android:epoxy-processor:${Version.EPOXY_VERSION}"
     //EPOXY BINDING

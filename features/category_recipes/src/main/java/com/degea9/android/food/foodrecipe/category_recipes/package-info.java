@@ -1,4 +1,4 @@
-package com.degea9.android.food.foodrecipe.home;
+package com.degea9.android.food.foodrecipe.category_recipes;
 
 import com.airbnb.epoxy.EpoxyDataBindingPattern;
 

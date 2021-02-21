@@ -16,12 +16,13 @@ import timber.log.Timber
 class CategoryRecipesActivity : BaseActivity() {
 
     private val categoryRecipesViewModel: CategoryRecipesViewModel by viewModels()
-    private val adapter = RecipesAdapter()
+    private val pagingController = RecipePagingController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_recipes)
-        rv_recipes.adapter = adapter
+        rv_recipes.adapter = pagingController.adapter
+        rv_recipes.setItemSpacingPx(30)
         setupObserver()
     }
 
@@ -29,7 +30,7 @@ class CategoryRecipesActivity : BaseActivity() {
         lifecycleScope.launch {
             categoryRecipesViewModel.searchRecipe("popularity").collectLatest {
                 Timber.d("get category recipes result ")
-                adapter.submitData(it)
+                pagingController.submitData(it)
             }
         }
     }

@@ -71,6 +71,7 @@ dependencies {
 
     //EPOXY
     implementation(Deps.EPOXY)
+    implementation(Deps.EPOXY_PAGING3)
     implementation(Deps.EPOXY_BINDING)
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)

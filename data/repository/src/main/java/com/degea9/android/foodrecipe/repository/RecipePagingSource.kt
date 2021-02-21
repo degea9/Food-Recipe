@@ -2,10 +2,8 @@ package com.degea9.android.foodrecipe.repository
 
 import androidx.paging.PagingSource
 import com.degea9.android.foodrecipe.domain.model.Recipe
-import com.degea9.android.foodrecipe.remote.BuildConfig
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataListMapper
 import com.degea9.foodrecipe.remote.FoodRecipeService
-import com.degea9.foodrecipe.remote.response.RecipeResponse
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
