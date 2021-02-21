@@ -13,7 +13,6 @@ class RecipeRemoteDataSourceImpl(private val foodRecipeService: FoodRecipeServic
 
     override suspend fun getPopularRecipes(): ListRecipeResponse {
         return foodRecipeService.getPopularRecipe(
-            apiKey = BuildConfig.SPOONACULAR_API_KEY,
             query = "",
             type = "main course"
         )

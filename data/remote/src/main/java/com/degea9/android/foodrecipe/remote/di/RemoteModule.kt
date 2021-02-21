@@ -3,11 +3,14 @@ package com.degea9.android.foodrecipe.remote.di
 import com.degea9.android.foodrecipe.remote.BuildConfig
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSourceImpl
+import com.degea9.android.foodrecipe.remote.interceptor.ApiInterceptor
 import com.degea9.foodrecipe.remote.FoodRecipeService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.multibindings.IntoSet
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,7 +26,8 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideHttpLoggingInterceptor():HttpLoggingInterceptor{
+    @IntoSet
+    fun provideHttpLoggingInterceptor():Interceptor{
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         if(BuildConfig.DEBUG){
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -33,10 +37,17 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor):OkHttpClient{
+    @IntoSet
+    fun provideApiInterceptor():Interceptor = ApiInterceptor()
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(interceptors:MutableSet<Interceptor>):OkHttpClient{
         val okHttpBuilder = OkHttpClient.Builder()
+        interceptors.forEach {
+            okHttpBuilder.addInterceptor(it)
+        }
         okHttpBuilder
-            .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(CLIENT_TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(CLIENT_TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(CLIENT_TIME_OUT, TimeUnit.SECONDS)

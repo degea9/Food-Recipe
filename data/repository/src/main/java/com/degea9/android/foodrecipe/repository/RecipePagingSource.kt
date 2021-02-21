@@ -27,7 +27,6 @@ class RecipePagingSource(
         Timber.d("offset $offset")
         return try {
             val recipeResponse = service.searchRecipes(
-                apiKey = BuildConfig.SPOONACULAR_API_KEY,
                 query = query,
                 sort = sort,
                 offset = offset,
