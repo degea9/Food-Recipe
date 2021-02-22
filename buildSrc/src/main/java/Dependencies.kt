@@ -158,6 +158,9 @@ object Deps {
     const val GLIDE = "com.github.bumptech.glide:glide:${Version.GLIDE_VERSION}"
     const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${Version.GLIDE_VERSION}"
 
+    //facebook shimmer
+    const val FB_SHIMMER = "com.facebook.shimmer:shimmer:${Version.FB_SHIMMER_VERSION}"
+
     // Lottie
     const val LOTTIE = "com.airbnb.android:lottie:${Version.LOTTIE_VERSION}"
 

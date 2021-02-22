@@ -110,6 +110,9 @@ object Version {
     //PAGING 3
     const val PAGING_VERSION = "3.0.0-alpha11"
 
+    //FB shimmer
+    const val FB_SHIMMER_VERSION = "0.5.0"
+
 }
 
 object TestVersion {

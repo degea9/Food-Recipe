@@ -83,6 +83,8 @@ dependencies {
     //PAGING
     implementation(Deps.PAGING_RUNTIME_KTX)
 
+    //FB SHIMMER
+    implementation(Deps.FB_SHIMMER)
 
     //KTX
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)
