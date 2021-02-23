@@ -113,6 +113,8 @@ object Version {
     //FB shimmer
     const val FB_SHIMMER_VERSION = "0.5.0"
 
+    const val INLINE_ACTIVITY_RESULT_VERSION = "1.0.4"
+
 }
 
 object TestVersion {
@@ -144,4 +146,5 @@ object TestVersion {
 
     // MockK
     const val mockKVersion = "1.10.0"
+
 }

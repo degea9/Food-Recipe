@@ -161,6 +161,10 @@ object Deps {
     //facebook shimmer
     const val FB_SHIMMER = "com.facebook.shimmer:shimmer:${Version.FB_SHIMMER_VERSION}"
 
+    //inline activity result
+    const val INLINE_ACTIVITY_RESULT = "com.github.florent37:inline-activity-result-kotlin:${Version.INLINE_ACTIVITY_RESULT_VERSION}"
+
+
     // Lottie
     const val LOTTIE = "com.airbnb.android:lottie:${Version.LOTTIE_VERSION}"
 

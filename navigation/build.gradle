@@ -34,10 +34,25 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    //project dependencies
+    implementation(project(Modules.core))
+
+    // Coroutines
+    implementation(Deps.COROUTINES_CORE)
+    implementation(Deps.COROUTINES_ANDROID)
+
+    //life cycle and viewmodel
+    implementation(Deps.LIFECYCLE_LIVEDATA_KTX)
+    implementation(Deps.LIFECYCLE_VIEWMODEL_KTX)
+
+    implementation (Deps.KOTLIN)
+    implementation (Deps.ANDROIDX_CORE_KTX)
+    implementation (Deps.APPCOMPAT)
+    implementation (Deps.MATERIAL)
+    implementation (Deps.CONSTRAINT_LAYOUT)
+
+    implementation (Deps.INLINE_ACTIVITY_RESULT)
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
