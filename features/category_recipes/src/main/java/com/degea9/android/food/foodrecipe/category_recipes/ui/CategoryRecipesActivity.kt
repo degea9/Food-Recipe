@@ -48,7 +48,7 @@ class CategoryRecipesActivity : BaseActivity() {
 
     private fun setupObserver() {
         lifecycleScope.launch {
-            categoryRecipesViewModel.searchRecipe("popularity").collectLatest {
+            categoryRecipesViewModel.recipePagingDataFlow?.collectLatest {
                 pagingController.submitData(it)
             }
         }

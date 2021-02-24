@@ -17,8 +17,14 @@ class CategoryRecipesViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
+    var recipePagingDataFlow : Flow<PagingData<Recipe>> ? = null
+
+    init {
+        recipePagingDataFlow = searchRecipeUsecase.searchRecipe(query = "",sort="popularity").cachedIn(viewModelScope)
+    }
+
     /**
      * search recipe by sorting option(category) such as popularity,healthiness,price...
      */
-    fun searchRecipe(sort: String): Flow<PagingData<Recipe>> = searchRecipeUsecase.searchRecipe(query = "",sort=sort).cachedIn(viewModelScope)
+    //fun searchRecipe(sort: String): Flow<PagingData<Recipe>> = searchRecipeUsecase.searchRecipe(query = "",sort=sort).cachedIn(viewModelScope)
 }
