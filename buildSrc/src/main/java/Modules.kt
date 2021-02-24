@@ -9,6 +9,7 @@ object Modules {
     val domain = ":domain"
     val core = ":core"
     val navigation = ":navigation"
+    val common_android = ":common-android"
 
     object AndroidLibrary {
         const val CORE = ":libraries:core"

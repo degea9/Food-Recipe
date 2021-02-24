@@ -13,6 +13,9 @@ object Plugins {
         "org.jlleitschuh.gradle:ktlint-gradle:${PluginVersion.KTLINT_VERSION}"
     const val CLASSPATH_DAGGER_HILT =
         "com.google.dagger:hilt-android-gradle-plugin:${Version.DAGGER_HILT_VERSION}"
+
+    const val CLASSPATH_NAV_SAFE_ARGS =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${PluginVersion.NAV_SAFE_ARGS_VERSION}"
     /*
         Module Level
      */

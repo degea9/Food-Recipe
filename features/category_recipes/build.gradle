@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android-extensions'
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 android {
@@ -62,12 +63,14 @@ dependencies {
 
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     kapt(Deps.DAGGER_HILT_COMPILER)
     implementation(Deps.DAGGER_HILT_VIEWMODEL)
     kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
+
+    // Navigation Components
+    implementation(Deps.NAVIGATION_FRAGMENT)
+    implementation(Deps.NAVIGATION_UI)
+    implementation(Deps.NAVIGATION_RUNTIME)
 
     //EPOXY
     implementation(Deps.EPOXY)

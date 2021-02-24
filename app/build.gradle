@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android-extensions'
+    id "androidx.navigation.safeargs.kotlin"
+
 }
 
 android {
@@ -51,6 +53,11 @@ dependencies {
     kapt(Deps.DAGGER_HILT_COMPILER)
     implementation(Deps.DAGGER_HILT_VIEWMODEL)
     kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
+
+    // Navigation Components
+    implementation(Deps.NAVIGATION_FRAGMENT)
+    implementation(Deps.NAVIGATION_UI)
+    implementation(Deps.NAVIGATION_RUNTIME)
 
     //TIMBER
     implementation(Deps.TIMBER)
