@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="recipePopularItem"
+            name="recipe"
             type="com.degea9.android.foodrecipe.domain.model.Recipe" />
     </data>
 
@@ -33,7 +32,7 @@
 
             <ImageView
                 android:id="@+id/iv_recipe"
-                imageSrc="@{recipePopularItem.image}"
+                imageSrc="@{recipe.image}"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:text="@{recipePopularItem.title}"
+            android:text="@{recipe.title}"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="@id/cardview_recipe"
             app:layout_constraintStart_toStartOf="@id/cardview_recipe"

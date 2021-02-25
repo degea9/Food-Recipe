@@ -20,15 +20,11 @@ class HomeViewModel @Inject constructor(
     init {
         Timber.d("init called")
         val listCategory =
-            listOf<String>("popularity", "healthiness", "price", "random", "cholesterol", "carbs")
+            listOf("popularity", "healthiness", "price","cholesterol", "carbs")
         categoryRecipesList = listCategory.asFlow().flatMapMerge { categoryName ->
             getPopularRecipeUsecase.getRecipes(categoryName)
                 .map { CategoryRecipes(categoryName, recipes = it) }
         }.shareIn(viewModelScope, replay = listCategory.size, started = SharingStarted.Lazily)
 
     }
-
-    //val popularRecipes : LiveData<List<Recipe>> =  getPopularRecipeUsecase.getRecipes("popularity").asLiveData(viewModelScope.coroutineContext+Dispatchers.IO)
-
-    //val heathRecipes : LiveData<List<Recipe>> =  getPopularRecipeUsecase.getRecipes("healthiness").asLiveData(viewModelScope.coroutineContext+Dispatchers.IO)
 }

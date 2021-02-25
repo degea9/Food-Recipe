@@ -7,11 +7,8 @@ import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("imageSrc")
 fun setImageUrl(view: ImageView, path: String?) {
-
     try {
-
         val requestOptions = RequestOptions()
-
         Glide
             .with(view.context)
             .setDefaultRequestOptions(requestOptions.centerCrop())

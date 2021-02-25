@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.degea9.android.food.foodrecipe.home.databinding.FragmentHomeBinding
 import com.degea9.android.food.foodrecipe.model.CategoryRecipes
 import com.degea9.android.foodrecipe.core.BaseFragment
+import com.degea9.android.foodrecipe.domain.model.Recipe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,28 +20,31 @@ import timber.log.Timber
 class HomeFragment : BaseFragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private val categoryRecipes: MutableList<CategoryRecipes> = mutableListOf()
-    private val controller = HomeController(::onCategoryClick)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val controller = HomeController(::onCategoryClick,::onItemClick)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView")
         // Inflate the layout for this fragment
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.rvRecipe.adapter = controller.adapter
-        setupObserver()
+        categoryRecipes.clear()
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated")
+        setupObserver()
+    }
+
     private fun setupObserver() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             homeViewModel.categoryRecipesList?.collectLatest {
                 Timber.d("recipe name ${it.category} recipes size ${it.recipes.size}")
-                categoryRecipes.add(CategoryRecipes(category = it.category, recipes = it.recipes))
+                categoryRecipes.add(it)
                 controller.setData(categoryRecipes)
             }
         }
@@ -50,17 +54,7 @@ class HomeFragment : BaseFragment() {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryRecipesFragment(category))
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment HomeFragment.
-         */
-        @JvmStatic
-        fun newInstance() =
-            HomeFragment().apply {
+    private fun onItemClick(recipe:Recipe){
 
-            }
     }
 }
