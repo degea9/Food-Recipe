@@ -32,7 +32,6 @@ class HomeFragment : BaseFragment() {
         // Inflate the layout for this fragment
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.rvRecipe.adapter = controller.adapter
-        setupRecyclerView()
         setupObserver()
         return binding.root
     }
@@ -43,23 +42,12 @@ class HomeFragment : BaseFragment() {
                 Timber.d("recipe name ${it.category} recipes size ${it.recipes.size}")
                 categoryRecipes.add(CategoryRecipes(category = it.category, recipes = it.recipes))
                 controller.setData(categoryRecipes)
-                //setupRecyclerView(it)
             }
         }
-//        homeViewModel.heathRecipes.observe(viewLifecycleOwner, Observer {
-//            Timber.d("heathRecipes size ${it.size}")
-//            categoryRecipes.add(CategoryRecipes(category = "heathy", recipes = it))
-//            controller.setData(categoryRecipes,false)
-//            //setupRecyclerView(it)
-//        })
     }
 
-    private fun setupRecyclerView() {
-
-    }
-
-    private fun onCategoryClick(category: String){
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryRecipesFragment())
+    private fun onCategoryClick(category: String) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryRecipesFragment(category))
     }
 
     companion object {

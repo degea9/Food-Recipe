@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import com.degea9.android.food.foodrecipe.category_recipes.databinding.FragmentCategoryRecipesBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,23 +25,20 @@ class CategoryRecipesFragment : Fragment() {
     private val pagingController = RecipePagingController()
     private lateinit var binding:FragmentCategoryRecipesBinding
 
-    private var category: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            category = it.getString(CATEGORY)
-        }
-    }
+    val args: CategoryRecipesFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCategoryRecipesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setup()
         setupObserver()
-        return binding.root
     }
 
     private fun setup(){
@@ -61,6 +59,7 @@ class CategoryRecipesFragment : Fragment() {
                 binding.shimmerViewContainer.isVisible = false
             }
         }
+        Timber.d("category is ${args.category}")
     }
 
     private fun setupObserver() {
@@ -69,23 +68,5 @@ class CategoryRecipesFragment : Fragment() {
                 pagingController.submitData(it)
             }
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param category category
-         * @return A new instance of fragment CategoryRecipesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(category: String) =
-            CategoryRecipesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(CATEGORY, category)
-                }
-            }
     }
 }

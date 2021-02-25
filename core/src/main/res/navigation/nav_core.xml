@@ -19,6 +19,9 @@
         android:name="com.degea9.android.food.foodrecipe.category_recipes.ui.CategoryRecipesFragment"
         android:label="fragment_category_recipes" >
 
+        <argument
+            android:name="category"
+            app:argType="string" />
     </fragment>
 
 
