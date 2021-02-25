@@ -3,15 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="recipe"
+            type="com.degea9.android.foodrecipe.domain.model.Recipe" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RecipeDetailFragment">
+        tools:showPaths="true">
 
-        <TextView
+        <ImageView
+            android:id="@+id/iv_recipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Recipe Detail Fragment" />
+            android:layout_height="300dp"
+            imageSrc="@{recipe.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
