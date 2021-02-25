@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_categoryRecipesFragment"
             app:destination="@id/categoryRecipesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
 
     <fragment
@@ -22,6 +25,19 @@
         <argument
             android:name="category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_categoryRecipesFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.degea9.android.food.foodrecipe.recipe_detail.RecipeDetailFragment"
+        android:label="fragment_recipe_detail" >
+
+        <argument
+            android:name="recipeID"
+            app:argType="integer" />
     </fragment>
 
 

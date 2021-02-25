@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import com.degea9.android.food.foodrecipe.category_recipes.databinding.FragmentCategoryRecipesBinding
+import com.degea9.android.food.foodrecipe.home.HomeFragmentDirections
+import com.degea9.android.foodrecipe.domain.model.Recipe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,7 +33,7 @@ class CategoryRecipesFragment : Fragment() {
     }
 
     //controller for epoxy recyclerview
-    private val pagingController = RecipePagingController()
+    private val pagingController = RecipePagingController(::onItemClick)
     private lateinit var binding:FragmentCategoryRecipesBinding
 
 
@@ -74,6 +77,12 @@ class CategoryRecipesFragment : Fragment() {
             categoryRecipesViewModel.recipePagingDataFlow?.collectLatest {
                 pagingController.submitData(it)
             }
+        }
+    }
+
+    private fun onItemClick(recipe: Recipe?){
+        recipe?.let {
+            findNavController().navigate(CategoryRecipesFragmentDirections.actionCategoryRecipesFragmentToRecipeDetailFragment(it.id))
         }
     }
 }

@@ -55,6 +55,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun onItemClick(recipe:Recipe){
-
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(recipe.id))
     }
 }

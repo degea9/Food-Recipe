@@ -6,13 +6,14 @@ import com.degea9.android.food.foodrecipe.category_recipes.epoxy_paging3.PagingD
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import timber.log.Timber
 
-class RecipePagingController: PagingDataEpoxyController<Recipe>() {
+class RecipePagingController(private val onItemClick: (Recipe?)->Unit): PagingDataEpoxyController<Recipe>() {
     override fun buildItemModel(currentPosition: Int, item: Recipe?): EpoxyModel<*> {
         return CategoryRecipeBindingModel_()
             .id(item?.id)
             .recipe(item)
             .clickListener { v ->
                 Timber.d("Click to ${item?.title}")
+                onItemClick(item)
             }
     }
 }
