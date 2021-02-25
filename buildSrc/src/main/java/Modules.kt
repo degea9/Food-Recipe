@@ -8,7 +8,6 @@ object Modules {
     val remote = ":data:remote"
     val domain = ":domain"
     val core = ":core"
-    val navigation = ":navigation"
     val common_android = ":common-android"
 
     object AndroidLibrary {
