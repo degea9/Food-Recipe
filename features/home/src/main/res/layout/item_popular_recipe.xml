@@ -15,14 +15,14 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:onClick="@{clickListener}">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview_recipe"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:theme="@style/Theme.MaterialComponents.Light"
             app:cardCornerRadius="8dp"
             android:elevation="0dp"
@@ -35,7 +35,7 @@
                 android:id="@+id/iv_recipe"
                 imageSrc="@{recipePopularItem.image}"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="150dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -17,8 +17,8 @@ class RecipeRepositoryImpl @Inject constructor(
     private val recipeRemoteDataSource: RecipeRemoteDataSource,
     private val mapper: RecipeDataListMapper
 ) : RecipeRepository {
-    override suspend fun getPopularRecipes(): List<Recipe> {
-        return mapper.map(recipeRemoteDataSource.getPopularRecipes().results).orEmpty()
+    override suspend fun getCategoryRecipes(category: String): List<Recipe> {
+        return mapper.map(recipeRemoteDataSource.getCategoryRecipes(category).results).orEmpty()
     }
 
     override fun searchRecipe(query:String,sort:String): Flow<PagingData<Recipe>> {

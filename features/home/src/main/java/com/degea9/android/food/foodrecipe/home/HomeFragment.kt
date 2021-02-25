@@ -5,20 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.airbnb.epoxy.Carousel
-import com.airbnb.epoxy.carousel
 import com.degea9.android.food.foodrecipe.home.databinding.FragmentHomeBinding
+import com.degea9.android.food.foodrecipe.model.CategoryRecipes
 import com.degea9.android.foodrecipe.core.BaseFragment
-import com.degea9.android.foodrecipe.domain.model.Recipe
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
     private val homeViewModel: HomeViewModel by viewModels()
+    private val categoryRecipes: MutableList<CategoryRecipes> = mutableListOf()
+    private val controller = HomeController(::onCategoryClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,44 +31,35 @@ class HomeFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.rvRecipe.adapter = controller.adapter
+        setupRecyclerView()
         setupObserver()
         return binding.root
     }
 
     private fun setupObserver() {
-        homeViewModel.popularRecipes.observe(viewLifecycleOwner, Observer {
-            Timber.d("popularRecipes size ${it.size}")
-            setupRecyclerView(it)
-        })
-    }
-
-    private fun setupRecyclerView(recipe: List<Recipe>) {
-        rvRecipe.withModels {
-            title {
-                id("title-id")
-                title("Need Assistant")
-            }
-            // Carousel Item
-            val carouselItemModels = recipe.map { currentItem ->
-                PopularRecipeBindingModel_()
-                    .id(currentItem.id)
-                    .recipePopularItem(currentItem)
-                    .clickListener { v ->
-                        Timber.d("Click to ${currentItem.title}")
-                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryRecipesFragment())
-                    }
-
-            }
-
-            // Carousel
-            // This extension function come with epoxy
-            carousel {
-                id("recipe")
-                padding(Carousel.Padding(30, 30))
-                Carousel.setDefaultGlobalSnapHelperFactory(null)
-                models(carouselItemModels)
+        lifecycleScope.launch {
+            homeViewModel.categoryRecipesList?.collectLatest {
+                Timber.d("recipe name ${it.category} recipes size ${it.recipes.size}")
+                categoryRecipes.add(CategoryRecipes(category = it.category, recipes = it.recipes))
+                controller.setData(categoryRecipes)
+                //setupRecyclerView(it)
             }
         }
+//        homeViewModel.heathRecipes.observe(viewLifecycleOwner, Observer {
+//            Timber.d("heathRecipes size ${it.size}")
+//            categoryRecipes.add(CategoryRecipes(category = "heathy", recipes = it))
+//            controller.setData(categoryRecipes,false)
+//            //setupRecyclerView(it)
+//        })
+    }
+
+    private fun setupRecyclerView() {
+
+    }
+
+    private fun onCategoryClick(category: String){
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryRecipesFragment())
     }
 
     companion object {

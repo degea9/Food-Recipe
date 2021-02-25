@@ -15,10 +15,10 @@ interface FoodRecipeService {
      * get popular recipes,the default sort direction is DESC and the default number items each page is 10
      */
     @GET("recipes/complexSearch")
-    suspend fun getPopularRecipe(
+    suspend fun getCategoryRecipes(
         @Query("query") query: String?,
         @Query("type") type: String?,
-        @Query("sort") sort: String? = "popularity",
+        @Query("sort") sort: String,
         @Query("sortDirection") sortDirection:String = "desc",
         @Query("offset") offset:Int = 0,
         @Query("number") number:Int = 10,
