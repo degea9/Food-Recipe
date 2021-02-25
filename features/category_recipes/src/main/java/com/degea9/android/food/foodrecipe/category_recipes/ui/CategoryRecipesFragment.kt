@@ -15,17 +15,24 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-private const val CATEGORY = "category"
 
 @AndroidEntryPoint
 class CategoryRecipesFragment : Fragment() {
+    private val args: CategoryRecipesFragmentArgs by navArgs()
 
-    private val categoryRecipesViewModel: CategoryRecipesViewModel by viewModels()
+    @Inject
+    lateinit var categoryRecipesViewModelFactory: CategoryRecipesViewModel.AssistedFactory
+
+    private val categoryRecipesViewModel: CategoryRecipesViewModel by viewModels{
+        CategoryRecipesViewModel.provideFactory(categoryRecipesViewModelFactory,args.category)
+    }
+
+    //controller for epoxy recyclerview
     private val pagingController = RecipePagingController()
     private lateinit var binding:FragmentCategoryRecipesBinding
 
-    val args: CategoryRecipesFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

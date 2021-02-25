@@ -44,6 +44,8 @@ dependencies {
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
     kapt(Deps.DAGGER_HILT_COMPILER)
+    implementation(Deps.DAGGER_HILT_VIEWMODEL)
+    kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
 
     //PAGING
     implementation(Deps.PAGING_RUNTIME_KTX)
