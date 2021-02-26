@@ -40,19 +40,19 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/white"
             android:elevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_recipe"
-            app:tabIndicatorColor="@color/link_text"
+            app:tabIndicatorColor="#1FCC79"
             app:tabSelectedTextColor="@color/link_text"
             app:tabTextAppearance="@style/Widget.TabItem">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tweets"
+                android:text="Process"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/secondary_text" />
 

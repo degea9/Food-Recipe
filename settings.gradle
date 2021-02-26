@@ -1,2 +1,3 @@
+include ':common-android'
 include ':app',':features:home',':features:category_recipes',':features:recipe-detail',':data:remote',':data:repository',':domain', ':core'
 rootProject.name = "Food Recipe"

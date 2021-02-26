@@ -12,10 +12,10 @@
     <color name="semiTransparentLight">#505b5b5b</color>
     <color name="semiTransparentLighter">#145b5b5b</color>
     <color name="transparent">#00ffffff</color>
-    <color name="secondary_text">#8899A6</color>
+    <color name="secondary_text">#9FA5C0</color>
     <color name="green">#17BF63</color>
     <color name="red">#E0245D</color>
-    <color name="link_text">#1EA1F2</color>
+    <color name="link_text">#3E5481</color>
     <color name="orange">#D35D44</color>
     <color name="black">#000000</color>
 </resources>
