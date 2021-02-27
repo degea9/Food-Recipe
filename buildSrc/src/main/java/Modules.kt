@@ -14,6 +14,7 @@ object Modules {
         const val CORE = ":libraries:core"
         const val DATA = ":libraries:data"
         const val DOMAIN = ":libraries:domain"
+        val COMMON_ANDROID = ":common-android"
         const val TEST_UTILS = ":libraries:test-utils"
     }
 
