@@ -1,21 +1,20 @@
-package com.degea9.android.food.foodrecipe.recipe_detail.viewbindings
+package com.degea9.android.foodrecipe.common.util
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import timber.log.Timber
+import com.bumptech.glide.request.target.Target
 
-@BindingAdapter("imageSrc")
-fun setImageUrl(view: ImageView, path: String?) {
-    Timber.d("URL: +$path")
+@BindingAdapter("rawImageSrc")
+fun setRawImageUrl(view: ImageView, path: String?) {
+    Log.d("AAAA", "URL: ${path}")
     try {
-        val requestOptions = RequestOptions()
-
         Glide
             .with(view.context)
-            .setDefaultRequestOptions(requestOptions.centerCrop())
             .load(path)
+            .apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL))
             .into(view)
     } catch (e: Exception) {
         e.printStackTrace()

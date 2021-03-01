@@ -2,6 +2,8 @@
 <resources>
 
     <dimen name="_16dp">16dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_30dp">30dp</dimen>
     <dimen name="instruction_bullet">24dp</dimen>
     <dimen name="instruction_bullet_margin">@dimen/_16dp</dimen>
     <dimen name="instruction__bullet_text_size">12sp</dimen>
