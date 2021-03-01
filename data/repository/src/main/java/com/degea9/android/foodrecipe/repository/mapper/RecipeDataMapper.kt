@@ -14,7 +14,8 @@ class RecipeDataMapper  @Inject constructor(): Mapper<RecipeResponse,Recipe> {
             imageType = input.imageType,
             sourceName = input.sourceName,
             dishTypes = input.dishTypes,
-            analyzedInstructions = MapperFactory.createListMapper<InstructionDataListMapper>().map(input.analyzedInstructions)
+            analyzedInstructions = MapperFactory.createListMapper<InstructionDataListMapper>().map(input.analyzedInstructions),
+            extendedIngredients = MapperFactory.createListMapper<IngredientDataListMapper>().map(input.extendedIngredients)
         )
     }
 }

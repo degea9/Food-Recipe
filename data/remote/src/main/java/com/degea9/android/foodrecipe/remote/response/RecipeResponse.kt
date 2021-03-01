@@ -16,5 +16,7 @@ data class RecipeResponse(
 
     val dishTypes: List<String>?,
 
-    val analyzedInstructions: List<InstructionResponse>?
+    val analyzedInstructions: List<InstructionResponse>?,
+
+    val extendedIngredients: List<IngredientResponse>?
 )
