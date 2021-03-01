@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="instruction">Instruction</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="equipment">Equipment</string>
+</resources>

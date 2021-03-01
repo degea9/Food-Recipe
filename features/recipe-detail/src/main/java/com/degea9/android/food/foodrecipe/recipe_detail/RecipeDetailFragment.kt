@@ -12,6 +12,8 @@ import androidx.navigation.fragment.navArgs
 import com.degea9.android.food.foodrecipe.category_recipes.ui.CategoryRecipesFragmentArgs
 import com.degea9.android.food.foodrecipe.recipe_detail.databinding.FragmentRecipeDetailBinding
 import com.degea9.android.foodrecipe.core.BaseFragment
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -40,13 +42,26 @@ class RecipeDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setup()
         setupObserver()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    private fun setup(){
+        val pagerAdapter = RecipeDetailViewPagerAdapter(this)
+        binding.viewpager.adapter = pagerAdapter
+        // Set the icon and text for each tab
+        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
+            tab.text = getTabTitle(position)
+        }.attach()
+    }
 
+    private fun getTabTitle(position:Int):String{
+        return when (position) {
+            INSTRUCTION_PAGE_INDEX -> getString(R.string.instruction)
+            INGREDIENT_PAGE_INDEX -> getString(R.string.ingredient)
+            EQUIPMENT_PAGE_INDEX -> getString(R.string.equipment)
+            else -> ""
+        }
     }
 
     private fun setupObserver(){
