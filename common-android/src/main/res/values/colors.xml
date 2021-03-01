@@ -2,4 +2,8 @@
 <resources>
 
     <color name="rhino">#2E3E5C</color>
+    <color name="mountain_meadow">#1FCC79</color>
+    <color name="athens_gray">#F4F5F7</color>
+    <color name="cadet_blue">#9FA5C0</color>
+    <color name="periwinkle_gray">#D0DBEA</color>
 </resources>

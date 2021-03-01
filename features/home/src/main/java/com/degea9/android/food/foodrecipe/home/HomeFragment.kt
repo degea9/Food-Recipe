@@ -18,9 +18,11 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
+
+    private lateinit var binding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModels()
     private val categoryRecipes: MutableList<CategoryRecipes> = mutableListOf()
-    private val controller = HomeController(::onCategoryClick,::onItemClick)
+    private val controller = HomeController(::onCategoryClick, ::onItemClick)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +30,7 @@ class HomeFragment : BaseFragment() {
     ): View? {
         Timber.d("onCreateView")
         // Inflate the layout for this fragment
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.rvRecipe.adapter = controller.adapter
         categoryRecipes.clear()
         return binding.root
@@ -37,7 +39,14 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated")
+        setup()
         setupObserver()
+    }
+
+    private fun setup() {
+        binding.edtSearch.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        }
     }
 
     private fun setupObserver() {
@@ -51,10 +60,18 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun onCategoryClick(category: String) {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryRecipesFragment(category))
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToCategoryRecipesFragment(
+                category
+            )
+        )
     }
 
-    private fun onItemClick(recipe:Recipe){
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(recipe.id))
+    private fun onItemClick(recipe: Recipe) {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(
+                recipe.id
+            )
+        )
     }
 }

@@ -4,6 +4,7 @@ object Modules {
     val featureHome = ":features:home"
     val featureCategoryRecipes = ":features:category_recipes"
     val featureRecipeDetail = ":features:recipe-detail"
+    val featureSearch = ":features:search"
     val repository = ":data:repository"
     val remote = ":data:remote"
     val domain = ":domain"
