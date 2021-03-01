@@ -16,5 +16,7 @@ data class Recipe(
 
     val dishTypes: List<String>?,
 
-    val analyzedInstructions: List<Instruction>?
+    val analyzedInstructions: List<Instruction>?,
+
+    val extendedIngredients: List<Ingredient>?
 )
