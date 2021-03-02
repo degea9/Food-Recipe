@@ -8,13 +8,43 @@
         android:layout_height="match_parent"
         tools:context=".HomeActivity">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="@dimen/_16dp"
+            android:background="@color/mountain_meadow">
+
+            <EditText
+                android:id="@+id/edt_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_64dp"
+                android:layout_margin="@dimen/_24dp"
+                android:background="@drawable/bg_search"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/_8dp"
+                android:paddingHorizontal="@dimen/_24dp"
+                android:hint="@string/search"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/search_text_size"
+                android:textColor="@color/cadet_blue"
+                android:textColorHint="@color/cadet_blue"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/rvRecipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_header"
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
