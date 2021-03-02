@@ -1,4 +1,4 @@
-package com.degea9.android.food.foodrecipe.category_recipes.epoxy_paging3
+package com.degea9.android.foodrecipe.epoxy_paging3
 
 import android.annotation.SuppressLint
 import android.os.Handler
