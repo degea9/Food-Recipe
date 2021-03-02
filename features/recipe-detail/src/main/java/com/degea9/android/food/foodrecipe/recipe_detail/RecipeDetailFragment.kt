@@ -53,6 +53,8 @@ class RecipeDetailFragment : BaseFragment() {
         TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
             tab.text = getTabTitle(position)
         }.attach()
+
+        binding.ivBack.setOnClickListener { requireActivity().onBackPressed() }
     }
 
     private fun getTabTitle(position:Int):String{

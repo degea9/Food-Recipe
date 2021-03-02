@@ -27,7 +27,6 @@ class HomeController(private val onCategoryClick: (String)->Unit,private val onI
                         Timber.d("Click to ${currentItem.title}")
                         onItemClick(currentItem)
                     }
-
             }
 
             // Carousel

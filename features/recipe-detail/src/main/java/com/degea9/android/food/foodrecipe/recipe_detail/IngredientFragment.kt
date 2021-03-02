@@ -44,7 +44,7 @@ class IngredientFragment : Fragment() {
     }
     private fun setupObserver(){
         recipeDetailViewModel.recipeDetailLiveData?.observe(viewLifecycleOwner) {
-            Timber.d("recipe instruction ${it.analyzedInstructions?.getOrNull(0)}")
+            Timber.d("recipe ingredient ${it.extendedIngredients.orEmpty()}")
             ingredientController.setData(it.extendedIngredients.orEmpty())
         }
     }

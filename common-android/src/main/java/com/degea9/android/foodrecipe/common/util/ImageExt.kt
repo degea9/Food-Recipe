@@ -1,15 +1,15 @@
 package com.degea9.android.foodrecipe.common.util
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import timber.log.Timber
 
 @BindingAdapter("rawImageSrc")
 fun setRawImageUrl(view: ImageView, path: String?) {
-    Log.d("AAAA", "URL: ${path}")
+    Timber.d("Image URL: $path")
     try {
         Glide
             .with(view.context)
