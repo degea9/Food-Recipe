@@ -1,15 +1,16 @@
 package com.degea9.android.food.foodrecipe.search
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.degea9.android.food.foodrecipe.category_recipes.ui.CategoryRecipesFragmentDirections
 import com.degea9.android.food.foodrecipe.search.databinding.FragmentSearchBinding
 import com.degea9.android.foodrecipe.core.BaseFragment
 import com.degea9.android.foodrecipe.domain.model.Recipe
@@ -40,18 +41,35 @@ class SearchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setup()
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
-        if(query != DEFAULT_QUERY){
-            search(query)
-            binding.edtSearch.setText(query)
-        }
+        search(query)
+        binding.edtSearch.setText(query)
     }
 
+    private fun focusOnSearchBar(){
+        binding.edtSearch.requestFocus()
+        showKeyboard()
+    }
+
+    fun showKeyboard(){
+
+        val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE)  as InputMethodManager?
+        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+    }
+    fun hideKeyboard(){
+        val view = requireView()
+        view.let {
+            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE)  as InputMethodManager?
+            imm?.hideSoftInputFromWindow(it.windowToken, 0)
+        }
+    }
     private fun setup(){
+        focusOnSearchBar()
         binding.rvSearchResult.adapter = pagingController.adapter
         binding.rvSearchResult.setItemSpacingPx(30)
         binding.edtSearch.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 updateRepoListFromInput()
+                hideKeyboard()
                 true
             } else {
                 false
@@ -76,18 +94,24 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun search(query: String) {
-        //cancel the previous job before creating a new one
-        searchJob?.cancel()
-        searchJob = viewLifecycleOwner.lifecycleScope.launch {
-            searchViewModel.searchRecipe(query)?.collectLatest {
-                pagingController.submitData(it)
+        if (query != DEFAULT_QUERY) {
+            //cancel the previous job before creating a new one
+            searchJob?.cancel()
+            searchJob = viewLifecycleOwner.lifecycleScope.launch {
+                searchViewModel.searchRecipe(query)?.collectLatest {
+                    pagingController.submitData(it)
+                }
             }
         }
     }
 
     private fun onItemClick(recipe: Recipe?){
         recipe?.let {
-            findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(it.id))
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(
+                    it.id
+                )
+            )
         }
     }
 
