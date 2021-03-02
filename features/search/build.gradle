@@ -75,6 +75,7 @@ dependencies {
 
     //EPOXY
     implementation(Deps.EPOXY)
+    implementation(Deps.EPOXY_PAGING3)
     implementation(Deps.EPOXY_BINDING)
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)
@@ -82,6 +83,8 @@ dependencies {
     implementation(Deps.GLIDE)
     kapt(Deps.GLIDE_COMPILER)
 
+    //PAGING
+    implementation(Deps.PAGING_RUNTIME_KTX)
 
     //KTX
     implementation(Deps.ANDROIDX_FRAGMENT_KTX)

@@ -1,4 +1,4 @@
-package com.degea9.android.food.foodrecipe.category_recipes.viewbindings
+package com.degea9.android.foodrecipe.viewbindings
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
