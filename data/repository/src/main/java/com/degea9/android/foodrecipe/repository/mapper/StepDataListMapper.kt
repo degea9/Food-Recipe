@@ -9,7 +9,8 @@ class StepDataListMapper : ListMapper<StepResponse, Step> {
             Step(
                 number = it.number,
                 step = it.step,
-                ingredients = MapperFactory.createListMapper<IngredientDataListMapper>().map(it.ingredients)
+                ingredients = MapperFactory.createListMapper<IngredientDataListMapper>().map(it.ingredients),
+                equipment = MapperFactory.createListMapper<EquipmentDataListMapper>().map(it.equipment)
                 )
         }
     }
