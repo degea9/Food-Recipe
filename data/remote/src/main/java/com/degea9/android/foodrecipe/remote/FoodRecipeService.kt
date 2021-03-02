@@ -1,5 +1,6 @@
 package com.degea9.foodrecipe.remote
 
+import com.degea9.android.foodrecipe.remote.response.SuggestionKeywordResponse
 import com.degea9.foodrecipe.remote.response.ListRecipeResponse
 import com.degea9.foodrecipe.remote.response.RecipeResponse
 import retrofit2.http.GET
@@ -42,6 +43,15 @@ interface FoodRecipeService {
     suspend fun getRecipeDetail(
         @Path("id") id: Int
     ): RecipeResponse
+
+    /**
+     * get suggestion keyword when use search
+     */
+    @GET("recipes/autocomplete")
+    suspend fun getSuggestionKeyword(
+        @Query("query") query: String,
+        @Query("number") number: Int
+    ): List<SuggestionKeywordResponse>
 }
 
 

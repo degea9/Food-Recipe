@@ -1,7 +1,10 @@
 package com.degea9.android.food.foodrecipe.search
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.opengl.Visibility
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -11,21 +14,24 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.degea9.android.food.foodrecipe.search.databinding.FragmentSearchBinding
 import com.degea9.android.foodrecipe.core.BaseFragment
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment() {
+class SearchFragment(override val coroutineContext: CoroutineContext = Dispatchers.Main) : BaseFragment(), CoroutineScope  {
 
     private lateinit var binding: FragmentSearchBinding
     private val searchViewModel: SearchViewModel by viewModels()
     //controller for epoxy recyclerview
     private val pagingController = SearchResultPagingController(::onItemClick)
+
+    private val suggestionController = SuggestionController()
     private var searchJob: Job? = null
 
     override fun onCreateView(
@@ -40,6 +46,7 @@ class SearchFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setup()
+        setUpObserver()
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
         search(query)
         binding.edtSearch.setText(query)
@@ -51,7 +58,6 @@ class SearchFragment : BaseFragment() {
     }
 
     fun showKeyboard(){
-
         val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE)  as InputMethodManager?
         imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
@@ -62,7 +68,32 @@ class SearchFragment : BaseFragment() {
             imm?.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
+    private fun setupEditTextSearch(){
+        val watcher = object : TextWatcher {
+            private var searchFor = ""
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val searchText = s.toString().trim()
+                if (searchText == searchFor)
+                    return
+
+                searchFor = searchText
+
+                launch {
+                    delay(300)  //debounce timeOut
+                    if (searchText != searchFor)
+                        return@launch
+                    searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
+                    // do our magic here
+                }
+            }
+            override fun afterTextChanged(s: Editable?) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+        }
+        binding.edtSearch.addTextChangedListener(watcher)
+    }
     private fun setup(){
+        setupEditTextSearch()
         focusOnSearchBar()
         binding.rvSearchResult.adapter = pagingController.adapter
         binding.rvSearchResult.setItemSpacingPx(30)
@@ -83,6 +114,18 @@ class SearchFragment : BaseFragment() {
                 false
             }
         }
+
+        binding.rvSearchSuggestion.adapter = suggestionController.adapter
+        binding.rvSearchSuggestion.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+    }
+
+    private fun setUpObserver(){
+        searchViewModel.suggestionLiveData.observe(viewLifecycleOwner){
+            binding.rvSearchSuggestion.visibility = View.VISIBLE
+            binding.rvSearchResult.visibility = View.GONE
+            suggestionController.setData(it)
+        }
     }
 
     private fun updateRepoListFromInput() {
@@ -94,6 +137,8 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun search(query: String) {
+        binding.rvSearchSuggestion.visibility = View.GONE
+        binding.rvSearchResult.visibility = View.VISIBLE
         if (query != DEFAULT_QUERY) {
             //cancel the previous job before creating a new one
             searchJob?.cancel()
@@ -123,5 +168,6 @@ class SearchFragment : BaseFragment() {
     companion object {
         private const val LAST_SEARCH_QUERY: String = "last_search_query"
         private const val DEFAULT_QUERY = ""
+        private const val SUGGESTION_NUMBER = 5
     }
 }
