@@ -43,6 +43,9 @@ class SearchFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setup()
+        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
+        search(query)
+        binding.edtSearch.setText(query)
     }
 
     private fun setup(){
@@ -88,5 +91,15 @@ class SearchFragment : BaseFragment() {
         recipe?.let {
             findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(it.id))
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(LAST_SEARCH_QUERY, binding.edtSearch.text.trim().toString())
+    }
+
+    companion object {
+        private const val LAST_SEARCH_QUERY: String = "last_search_query"
+        private const val DEFAULT_QUERY = ""
     }
 }
