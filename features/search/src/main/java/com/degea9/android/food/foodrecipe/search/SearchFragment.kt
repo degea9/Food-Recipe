@@ -27,14 +27,10 @@ class SearchFragment : BaseFragment() {
     private val pagingController = SearchResultPagingController(::onItemClick)
     private var searchJob: Job? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,8 +40,10 @@ class SearchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setup()
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
-        search(query)
-        binding.edtSearch.setText(query)
+        if(query != DEFAULT_QUERY){
+            search(query)
+            binding.edtSearch.setText(query)
+        }
     }
 
     private fun setup(){
