@@ -44,8 +44,9 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setup() {
-        binding.edtSearch.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        binding.edtSearch.setOnFocusChangeListener { _, isFocus ->
+            if(isFocus)
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
         }
     }
 
