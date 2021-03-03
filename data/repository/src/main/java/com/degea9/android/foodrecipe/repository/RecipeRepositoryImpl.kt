@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
+import com.degea9.android.foodrecipe.local.datasource.RecipeLocalDataSource
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataListMapper
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataMapper
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class RecipeRepositoryImpl @Inject constructor(
     private val service: FoodRecipeService,
     private val recipeRemoteDataSource: RecipeRemoteDataSource,
+    private val recipeLocalDataSource: RecipeLocalDataSource,
     private val listMapper: RecipeDataListMapper,
     private val recipeMapper:RecipeDataMapper,
     private val suggestionKeyWordListMapper: SuggestionKeywordDataListMapper

@@ -52,6 +52,15 @@ dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.repository))
     implementation(project(Modules.remote))
+    implementation(project(Modules.local))
+
+    // Room
+    implementation(Deps.ROOM_RUNTIME)
+    // For Kotlin use kapt instead of annotationProcessor
+    kapt(Deps.ROOM_COMPILER)
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation(Deps.ROOM_KTX)
+
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

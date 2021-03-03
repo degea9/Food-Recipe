@@ -1,2 +1,2 @@
-include ':app',':features:home',':features:favorite',':features:category_recipes',':features:recipe-detail',':features:search',':data:remote',':data:repository',':domain', ':core',':common-android'
+include ':app',':features:home',':features:favorite',':features:category_recipes',':features:recipe-detail',':features:search',':data:remote',':data:local',':data:repository',':domain', ':core',':common-android'
 rootProject.name = "Food Recipe"
