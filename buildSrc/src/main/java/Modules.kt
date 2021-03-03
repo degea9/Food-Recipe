@@ -2,10 +2,12 @@ object Modules {
 
     const val APP = ":app"
     val featureHome = ":features:home"
+    val featureFavorite = ":features:favorite"
     val featureCategoryRecipes = ":features:category_recipes"
     val featureRecipeDetail = ":features:recipe-detail"
     val featureSearch = ":features:search"
     val repository = ":data:repository"
+    val local = ":data:local"
     val remote = ":data:remote"
     val domain = ":domain"
     val core = ":core"

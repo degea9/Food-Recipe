@@ -1,27 +1,28 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android-extensions'
     id "androidx.navigation.safeargs.kotlin"
-
 }
 
 android {
     compileSdkVersion(AndroidVersion.COMPILE_SDK_VERSION)
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
+
     buildFeatures {
         dataBinding = true
     }
+
     defaultConfig {
-        applicationId = AndroidVersion.APPLICATION_ID
         minSdkVersion(AndroidVersion.MIN_SDK_VERSION)
         targetSdkVersion(AndroidVersion.TARGET_SDK_VERSION)
         versionCode  = AndroidVersion.VERSION_CODE
         versionName = AndroidVersion.VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -37,33 +38,32 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
 
     //project dependencies
-    implementation(project(Modules.featureHome))
-    implementation(project(Modules.featureFavorite))
-    implementation(project(Modules.featureSearch))
-    implementation(project(Modules.featureCategoryRecipes))
-    implementation(project(Modules.featureRecipeDetail))
-    implementation(project(Modules.featureSearch))
     implementation(project(Modules.core))
     implementation(project(Modules.domain))
-    implementation(project(Modules.repository))
-    implementation(project(Modules.remote))
-    implementation(project(Modules.local))
+    implementation(project(Modules.common_android))
 
-    // Room
-    implementation(Deps.ROOM_RUNTIME)
-    // For Kotlin use kapt instead of annotationProcessor
-    kapt(Deps.ROOM_COMPILER)
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation(Deps.ROOM_KTX)
+    implementation (Deps.KOTLIN)
+    implementation (Deps.ANDROIDX_CORE_KTX)
+    implementation (Deps.APPCOMPAT)
+    implementation (Deps.MATERIAL)
+    implementation (Deps.CONSTRAINT_LAYOUT)
+    // Coroutines
+    implementation(Deps.COROUTINES_CORE)
+    implementation(Deps.COROUTINES_ANDROID)
+    //life cycle and viewmodel
+    implementation(Deps.LIFECYCLE_LIVEDATA_KTX)
+    implementation(Deps.LIFECYCLE_VIEWMODEL_KTX)
 
     // Dagger Hilt
     implementation(Deps.DAGGER_HILT_ANDROID)
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt(Deps.DAGGER_HILT_COMPILER)
     implementation(Deps.DAGGER_HILT_VIEWMODEL)
     kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
@@ -73,14 +73,19 @@ dependencies {
     implementation(Deps.NAVIGATION_UI)
     implementation(Deps.NAVIGATION_RUNTIME)
 
-    //TIMBER
-    implementation(Deps.TIMBER)
+    //EPOXY
+    implementation(Deps.EPOXY)
+    implementation(Deps.EPOXY_BINDING)
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)
 
-    implementation (Deps.KOTLIN)
-    implementation (Deps.ANDROIDX_CORE_KTX)
-    implementation (Deps.APPCOMPAT)
-    implementation (Deps.MATERIAL)
-    implementation (Deps.CONSTRAINT_LAYOUT)
+    implementation(Deps.GLIDE)
+    kapt(Deps.GLIDE_COMPILER)
+
+
+    //KTX
+    implementation(Deps.ANDROIDX_FRAGMENT_KTX)
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation (TestDeps.ANDROIDX_JUNIT)
     androidTestImplementation (TestDeps.ANDROIDX_ESPRESSO)
