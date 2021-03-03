@@ -31,7 +31,7 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     //controller for epoxy recyclerview
     private val pagingController = SearchResultPagingController(::onItemClick)
 
-    private val suggestionController = SuggestionController()
+    private val suggestionController = SuggestionController(::onSuggestionClick)
     private var searchJob: Job? = null
 
     override fun onCreateView(
@@ -139,6 +139,7 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     private fun search(query: String) {
         binding.rvSearchSuggestion.visibility = View.GONE
         binding.rvSearchResult.visibility = View.VISIBLE
+        hideKeyboard()
         if (query != DEFAULT_QUERY) {
             //cancel the previous job before creating a new one
             searchJob?.cancel()
@@ -163,6 +164,12 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(LAST_SEARCH_QUERY, binding.edtSearch.text.trim().toString())
+    }
+
+    private fun onSuggestionClick(query: String?){
+        query?.let {
+            search(it)
+        }
     }
 
     companion object {
