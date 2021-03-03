@@ -14,5 +14,7 @@ interface RecipeRepository {
 
     suspend fun getSuggestionKeyword(query: String, number: Int): List<SuggestionKeyword>
 
+    suspend fun addFavorite(recipe: Recipe)
 
+    fun getFavoriteRecipes() : Flow<Recipe>
 }
