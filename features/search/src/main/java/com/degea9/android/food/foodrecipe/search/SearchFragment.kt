@@ -102,7 +102,6 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
                 false
             }
         }
-
         binding.rvSearchSuggestion.adapter = suggestionController.adapter
         binding.rvSearchSuggestion.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
