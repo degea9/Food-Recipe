@@ -8,12 +8,10 @@ import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
 import com.degea9.android.foodrecipe.local.datasource.RecipeLocalDataSource
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
-import com.degea9.android.foodrecipe.repository.mapper.RecipeDataListMapper
-import com.degea9.android.foodrecipe.repository.mapper.RecipeDataMapper
-import com.degea9.android.foodrecipe.repository.mapper.SuggestionKeywordDataListMapper
-import com.degea9.android.foodrecipe.repository.mapper.local.RecipeLocalMapper
+import com.degea9.android.foodrecipe.repository.mapper.*
 import com.degea9.foodrecipe.remote.FoodRecipeService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,7 +22,7 @@ class RecipeRepositoryImpl @Inject constructor(
     private val listMapper: RecipeDataListMapper,
     private val recipeMapper:RecipeDataMapper,
     private val suggestionKeyWordListMapper: SuggestionKeywordDataListMapper,
-    private val recipeLocalMapper: RecipeLocalMapper
+    private val dataMappersFacade: DataMappersFacade
 ) : RecipeRepository {
     override suspend fun getCategoryRecipes(category: String): List<Recipe> {
         return listMapper.map(recipeRemoteDataSource.getCategoryRecipes(category).results).orEmpty()
@@ -47,11 +45,11 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addFavorite(recipe: Recipe) {
-        recipeLocalDataSource.addFavorite(recipe)
+        recipeLocalDataSource.addFavorite(dataMappersFacade.mapDomainRecipeToLocal(recipe))
     }
 
     override fun getFavoriteRecipes(): Flow<Recipe> {
-        return recipeLocalDataSource.getFavoriteRecipes()
+        return recipeLocalDataSource.getFavoriteRecipes().map { dataMappersFacade.mapLocalRecipeToDomain(it) }
     }
 
     companion object {
