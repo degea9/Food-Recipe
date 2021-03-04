@@ -67,8 +67,13 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
                     delay(300)  //debounce timeOut
                     if (searchText != searchFor)
                         return@launch
-                    searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
-                    // do our magic here
+                    if(searchText.isNotEmpty()){
+                        searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
+                    }
+                    else {
+                        binding.rvSearchResult.visibility = View.GONE
+                        binding.rvSearchSuggestion.visibility = View.GONE
+                    }
                 }
             }
             override fun afterTextChanged(s: Editable?) = Unit
