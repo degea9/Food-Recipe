@@ -3,6 +3,8 @@ package com.degea9.android.foodrecipe.remote.di
 import com.degea9.android.foodrecipe.remote.BuildConfig
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSourceImpl
+import com.degea9.android.foodrecipe.remote.datasource.SuggestionKeywordRemoteDataSource
+import com.degea9.android.foodrecipe.remote.datasource.SuggestionKeywordRemoteDataSourceImpl
 import com.degea9.android.foodrecipe.remote.interceptor.ApiInterceptor
 import com.degea9.foodrecipe.remote.FoodRecipeService
 import dagger.Module
@@ -69,6 +71,12 @@ object RemoteModule {
     @Provides
     fun provideRecipeRemoteDataSource(foodRecipeService: FoodRecipeService): RecipeRemoteDataSource{
         return RecipeRemoteDataSourceImpl(foodRecipeService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSuggestionKeywordRemoteDataSourece(foodRecipeService: FoodRecipeService): SuggestionKeywordRemoteDataSource{
+        return SuggestionKeywordRemoteDataSourceImpl(foodRecipeService)
     }
 
 }

@@ -45,7 +45,7 @@ class SearchViewModel @Inject constructor(
 
     fun getSuggestKeyword(query: String, number: Int){
         viewModelScope.launch {
-            _suggestionLiveData.postValue(getSuggestionUseCase.getSuggestionKeyword(query, number))
+            _suggestionLiveData.postValue(getSuggestionUseCase.getRemoteSuggestionKeyword(query, number))
         }
     }
 

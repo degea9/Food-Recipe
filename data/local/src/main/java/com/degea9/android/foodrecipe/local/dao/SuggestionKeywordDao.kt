@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.degea9.android.foodrecipe.local.entity.SuggestionKeywordEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SuggestionKeywordDao {
@@ -12,6 +13,6 @@ interface SuggestionKeywordDao {
     suspend fun insertKeyword(keywordEntity: SuggestionKeywordEntity)
 
     @Query("SELECT * FROM suggestionKeyword ORDER BY search_time DESC LIMIT 5 ")
-    suspend fun getSuggestionKeyword(): List<SuggestionKeywordEntity>
+    fun getSuggestionKeyword(): Flow<SuggestionKeywordEntity>
 
 }
