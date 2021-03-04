@@ -57,17 +57,6 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         showKeyboard()
     }
 
-    fun showKeyboard(){
-        val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE)  as InputMethodManager?
-        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-    }
-    fun hideKeyboard(){
-        val view = requireView()
-        view.let {
-            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE)  as InputMethodManager?
-            imm?.hideSoftInputFromWindow(it.windowToken, 0)
-        }
-    }
     private fun setupEditTextSearch(){
         val watcher = object : TextWatcher {
             private var searchFor = ""
