@@ -110,7 +110,13 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private fun setUpObserver(){
         searchViewModel.suggestionLiveData.observe(viewLifecycleOwner){
-            binding.rvSearchSuggestion.visibility = View.VISIBLE
+            if(it.isEmpty()){
+                binding.rvSearchSuggestion.visibility = View.GONE
+
+            }
+            else {
+                binding.rvSearchSuggestion.visibility = View.VISIBLE
+            }
             binding.rvSearchResult.visibility = View.GONE
             suggestionController.setData(it)
         }
