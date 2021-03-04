@@ -31,7 +31,7 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     //controller for epoxy recyclerview
     private val pagingController = SearchResultPagingController(::onItemClick)
 
-    private val suggestionController = SuggestionController(::onSuggestionClick)
+    private val suggestionController = SuggestionController(::onSuggestionClick, ::onSeeAllClick)
     private var searchJob: Job? = null
 
     override fun onCreateView(
@@ -153,6 +153,10 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         query?.let {
             search(it)
         }
+    }
+
+    private fun onSeeAllClick(){
+        search(binding.edtSearch.text.toString())
     }
 
     override fun onResume() {
