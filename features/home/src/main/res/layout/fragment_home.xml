@@ -17,11 +17,10 @@
             android:paddingBottom="@dimen/_16dp"
             android:background="@color/mountain_meadow">
 
-            <EditText
-                android:id="@+id/edt_search"
+            <TextView
+                android:id="@+id/tv_search"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_48dp"
-                android:textIsSelectable="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/_32dp"
@@ -30,10 +29,11 @@
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="@dimen/_8dp"
                 android:paddingHorizontal="@dimen/_24dp"
-                android:hint="@string/search"
+                android:text="@string/search"
+                android:gravity="center_vertical"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/search_text_size"
-                android:textColor="@color/rhino"
+                android:textColor="@color/cadet_blue"
                 android:textColorHint="@color/cadet_blue"
                 />
 

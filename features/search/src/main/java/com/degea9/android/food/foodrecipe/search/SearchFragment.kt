@@ -52,11 +52,6 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         binding.edtSearch.setText(query)
     }
 
-    private fun focusOnSearchBar(){
-        binding.edtSearch.requestFocus()
-        showKeyboard()
-    }
-
     private fun setupEditTextSearch(){
         val watcher = object : TextWatcher {
             private var searchFor = ""
@@ -83,7 +78,6 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     }
     private fun setup(){
         setupEditTextSearch()
-        focusOnSearchBar()
         binding.rvSearchResult.adapter = pagingController.adapter
         binding.rvSearchResult.setItemSpacingPx(30)
         binding.edtSearch.setOnKeyListener { _, keyCode, event ->
@@ -159,6 +153,12 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         query?.let {
             search(it)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.edtSearch.requestFocus()
+        showKeyboard()
     }
 
     companion object {

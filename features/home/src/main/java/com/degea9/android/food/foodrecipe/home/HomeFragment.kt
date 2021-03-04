@@ -45,32 +45,12 @@ class HomeFragment : BaseFragment() {
         setupObserver()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun setup() {
-        binding.edtSearch.setOnTouchListener { _, _ ->
-            mayNavigate()
-            return@setOnTouchListener false
+        binding.searchHeader.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
         }
     }
 
-    private fun Fragment.mayNavigate(): Boolean {
-
-        val navController = findNavController()
-        val destinationIdInNavController = navController.currentDestination?.id
-
-        // add tag_navigation_destination_id to your ids.xml so that it's unique:
-        val destinationIdOfThisFragment = view?.getTag(R.id.homeFragment) ?: destinationIdInNavController
-
-        // check that the navigation graph is still in 'this' fragment, if not then the app already navigated:
-        if (destinationIdInNavController == destinationIdOfThisFragment) {
-            view?.setTag(R.id.homeFragment, destinationIdOfThisFragment)
-            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
-            return true
-        } else {
-            Timber.d("HomeFragment: May not navigate: current destination is not the current fragment.")
-            return false
-        }
-    }
     private fun setupObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             homeViewModel.categoryRecipesList?.collectLatest {
