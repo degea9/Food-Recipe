@@ -6,8 +6,11 @@ import com.degea9.android.food.foodrecipe.model.CategoryRecipes
 import com.degea9.android.foodrecipe.core.BaseViewModel
 import com.degea9.android.foodrecipe.domain.GetPopularRecipeUsecase
 import com.degea9.android.foodrecipe.domain.favorite.AddFavoriteRecipeUseCase
+import com.degea9.android.foodrecipe.domain.model.Recipe
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -28,5 +31,11 @@ class HomeViewModel @Inject constructor(
                 .map { CategoryRecipes(categoryName, recipes = it) }
         }.shareIn(viewModelScope, replay = listCategory.size, started = SharingStarted.Lazily)
 
+    }
+
+    fun addFavoriteRecipe(recipe:Recipe){
+        viewModelScope.launch {
+            addFavoriteRecipeUseCase.addFavoriteRecipe(recipe)
+        }
     }
 }

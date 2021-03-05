@@ -8,7 +8,7 @@ import com.degea9.android.food.foodrecipe.model.CategoryRecipes
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import timber.log.Timber
 
-class HomeController(private val onCategoryClick: (String)->Unit,private val onItemClick: (Recipe)->Unit) : TypedEpoxyController<List<CategoryRecipes>>() {
+class HomeController(private val onCategoryClick: (String)->Unit,private val onItemClick: (Recipe)->Unit,private val onLikeClick: (Recipe)->Unit) : TypedEpoxyController<List<CategoryRecipes>>() {
     override fun buildModels(categoryRecipes: List<CategoryRecipes>?) {
         categoryRecipes?.forEach {categoryRecipes->
             title {
@@ -26,6 +26,10 @@ class HomeController(private val onCategoryClick: (String)->Unit,private val onI
                     .clickListener { v ->
                         Timber.d("Click to ${currentItem.title}")
                         onItemClick(currentItem)
+                    }
+                    .likeClickListener{_->
+                        Timber.d("Like click to ${currentItem.title}")
+                        onLikeClick(currentItem)
                     }
             }
 

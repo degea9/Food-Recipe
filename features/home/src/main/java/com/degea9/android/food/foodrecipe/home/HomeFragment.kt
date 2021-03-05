@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModels()
     private val categoryRecipes: MutableList<CategoryRecipes> = mutableListOf()
-    private val controller = HomeController(::onCategoryClick, ::onItemClick)
+    private val controller = HomeController(::onCategoryClick, ::onItemClick, ::onLikeClick)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,5 +95,9 @@ class HomeFragment : BaseFragment() {
                 recipe.id
             )
         )
+    }
+
+    private fun onLikeClick(recipe: Recipe) {
+        homeViewModel.addFavoriteRecipe(recipe)
     }
 }

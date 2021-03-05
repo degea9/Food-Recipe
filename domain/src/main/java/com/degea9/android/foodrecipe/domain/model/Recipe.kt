@@ -18,5 +18,7 @@ data class Recipe(
 
     val analyzedInstructions: List<Instruction>?,
 
-    val extendedIngredients: List<Ingredient>?
+    val extendedIngredients: List<Ingredient>?,
+
+    val isFavorite:Boolean = false
 )
