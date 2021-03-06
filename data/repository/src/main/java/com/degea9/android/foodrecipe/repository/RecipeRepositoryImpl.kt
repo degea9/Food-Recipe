@@ -3,6 +3,7 @@ package com.degea9.android.foodrecipe.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
@@ -48,8 +49,12 @@ class RecipeRepositoryImpl @Inject constructor(
         recipeLocalDataSource.addFavorite(dataMappersFacade.mapDomainRecipeToLocal(recipe))
     }
 
-    override fun getFavoriteRecipes(): Flow<Recipe> {
-        return recipeLocalDataSource.getFavoriteRecipes().map { dataMappersFacade.mapLocalRecipeToDomain(it) }
+    override fun getFavoriteRecipes(): Flow<PagingData<Recipe>> {
+        return Pager(
+            PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false,initialLoadSize = NETWORK_PAGE_SIZE*2)
+        ){
+            recipeLocalDataSource.getFavoriteRecipes()
+        }.flow.map {pagingData-> pagingData.map { dataMappersFacade.mapLocalRecipeToDomain(it) } }
     }
 
     companion object {

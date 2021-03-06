@@ -1,5 +1,6 @@
 package com.degea9.android.foodrecipe.domain.favorite
 
+import androidx.paging.PagingData
 import com.degea9.android.foodrecipe.domain.dispatcher.UseCaseDispatchers
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
@@ -12,5 +13,5 @@ class GetFavoriteRecipesUseCase @Inject constructor(
     private val dispatcherProvider: UseCaseDispatchers
 ) {
 
-    fun getFavoriteRecipes(): Flow<Recipe>  = recipeRepository.getFavoriteRecipes().flowOn(dispatcherProvider.ioDispatcher)
+    fun getFavoriteRecipes(): Flow<PagingData<Recipe>>  = recipeRepository.getFavoriteRecipes().flowOn(dispatcherProvider.ioDispatcher)
 }

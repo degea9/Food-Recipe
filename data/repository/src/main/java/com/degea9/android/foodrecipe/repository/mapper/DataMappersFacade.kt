@@ -5,12 +5,12 @@ import com.degea9.android.foodrecipe.local.entity.RecipeEntity
 import javax.inject.Inject
 
 class DataMappersFacade @Inject constructor() {
-    fun mapLocalRecipeToDomain(input: RecipeEntity): Recipe {
+    fun mapLocalRecipeToDomain(input: RecipeEntity?): Recipe {
         return Recipe(
-            id = input.id,
-            title = input.title,
+            id = input?.id ?: 0,
+            title = input?.title,
             summary = "",
-            image = input.image,
+            image = input?.image,
             imageType = "",
             sourceName = "",
             dishTypes = emptyList(),
