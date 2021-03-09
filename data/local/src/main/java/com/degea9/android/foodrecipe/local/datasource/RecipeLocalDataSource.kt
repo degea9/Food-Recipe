@@ -1,5 +1,6 @@
 package com.degea9.android.foodrecipe.local.datasource
 
+import androidx.paging.PagingSource
 import com.degea9.android.foodrecipe.local.dao.RecipeDao
 import com.degea9.android.foodrecipe.local.entity.RecipeEntity
 import kotlinx.coroutines.flow.Flow
@@ -8,7 +9,7 @@ interface RecipeLocalDataSource {
 
     suspend fun addFavorite(recipeEntity: RecipeEntity)
 
-    fun getFavoriteRecipes() : Flow<RecipeEntity>
+    fun getFavoriteRecipes() : PagingSource<Int, RecipeEntity>
 }
 
 class RecipeLocalDataSourceImpl (private val recipeDao: RecipeDao): RecipeLocalDataSource{
@@ -16,6 +17,6 @@ class RecipeLocalDataSourceImpl (private val recipeDao: RecipeDao): RecipeLocalD
         recipeDao.addFavorite(recipeEntity)
     }
 
-    override fun getFavoriteRecipes(): Flow<RecipeEntity> = recipeDao.getFavoriteRecipes()
+    override fun getFavoriteRecipes(): PagingSource<Int, RecipeEntity> = recipeDao.getFavoriteRecipes()
 
 }

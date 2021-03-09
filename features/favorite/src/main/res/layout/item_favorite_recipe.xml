@@ -19,16 +19,18 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8dp"
         android:onClick="@{clickListener}">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview_recipe"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="0dp"
             android:elevation="0dp"
             android:theme="@style/Theme.MaterialComponents.Light"
+            app:layout_constraintDimensionRatio="1:1"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,22 +41,11 @@
                 android:id="@+id/iv_recipe"
                 imageSrc="@{recipe.image}"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </com.google.android.material.card.MaterialCardView>
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/cardview_recipe"
-                app:layout_constraintTop_toTopOf="@id/cardview_recipe"
-                android:src="@drawable/asl_heart_break"
-                android:onClick="@{likeClickListener}"
-                imageState="@{recipe.isFavorite}"
-                />
 
 
         <TextView

@@ -13,5 +13,7 @@ interface RecipeRepository {
     fun searchRecipe(query:String,sort:String):Flow<PagingData<Recipe>>
 
 
+    suspend fun addFavorite(recipe: Recipe)
 
+    fun getFavoriteRecipes() : Flow<PagingData<Recipe>>
 }

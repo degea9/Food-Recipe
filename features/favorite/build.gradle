@@ -68,6 +68,9 @@ dependencies {
     implementation(Deps.DAGGER_HILT_VIEWMODEL)
     kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
 
+    //PAGING
+    implementation(Deps.PAGING_RUNTIME_KTX)
+
     // Navigation Components
     implementation(Deps.NAVIGATION_FRAGMENT)
     implementation(Deps.NAVIGATION_UI)
@@ -76,6 +79,7 @@ dependencies {
     //EPOXY
     implementation(Deps.EPOXY)
     implementation(Deps.EPOXY_BINDING)
+    implementation(Deps.EPOXY_PAGING3)
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)
 

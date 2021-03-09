@@ -8,6 +8,7 @@ import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
 import com.degea9.android.foodrecipe.remote.datasource.SuggestionKeywordRemoteDataSource
 import com.degea9.android.foodrecipe.repository.RecipeRepositoryImpl
 import com.degea9.android.foodrecipe.repository.SuggestionKeywordRepositoryImpl
+import com.degea9.android.foodrecipe.repository.mapper.DataMappersFacade
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataListMapper
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataMapper
 import com.degea9.android.foodrecipe.repository.mapper.SuggestionKeywordDataListMapper
@@ -25,9 +26,9 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideRecipeRepository(service: FoodRecipeService,recipeRemoteDataSource: RecipeRemoteDataSource,recipeLocalDataSource: RecipeLocalDataSource,  recipeListMapper: RecipeDataListMapper,recipeDataMapper: RecipeDataMapper): RecipeRepository{
-        return RecipeRepositoryImpl(service,recipeRemoteDataSource,recipeLocalDataSource,recipeListMapper, recipeDataMapper
-        )
+
+    fun provideRecipeRepository(service: FoodRecipeService,recipeRemoteDataSource: RecipeRemoteDataSource,recipeLocalDataSource: RecipeLocalDataSource,  recipeListMapper: RecipeDataListMapper,recipeDataMapper: RecipeDataMapper, dataMappersFacade: DataMappersFacade): RecipeRepository{
+        return RecipeRepositoryImpl(service,recipeRemoteDataSource,recipeLocalDataSource,recipeListMapper, recipeDataMapper,dataMappersFacade)
     }
 
     @Singleton

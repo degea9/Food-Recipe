@@ -1,7 +1,6 @@
 package com.degea9.android.food.foodrecipe.search
 
 import android.content.Context.INPUT_METHOD_SERVICE
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher

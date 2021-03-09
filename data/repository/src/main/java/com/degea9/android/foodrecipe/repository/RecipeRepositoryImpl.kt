@@ -3,6 +3,7 @@ package com.degea9.android.foodrecipe.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
@@ -12,8 +13,10 @@ import com.degea9.android.foodrecipe.repository.mapper.RecipeDataListMapper
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataMapper
 import com.degea9.android.foodrecipe.repository.mapper.SuggestionKeywordDataListMapper
 import com.degea9.android.foodrecipe.repository.mapper.local.LocalSuggestionKeywordDataMapper
+import com.degea9.android.foodrecipe.repository.mapper.*
 import com.degea9.foodrecipe.remote.FoodRecipeService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -23,6 +26,7 @@ class RecipeRepositoryImpl @Inject constructor(
     private val recipeLocalDataSource: RecipeLocalDataSource,
     private val listMapper: RecipeDataListMapper,
     private val recipeMapper:RecipeDataMapper,
+    private val dataMappersFacade: DataMappersFacade
 ) : RecipeRepository {
     override suspend fun getCategoryRecipes(category: String): List<Recipe> {
         return listMapper.map(recipeRemoteDataSource.getCategoryRecipes(category).results).orEmpty()
@@ -38,6 +42,18 @@ class RecipeRepositoryImpl @Inject constructor(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false,initialLoadSize = NETWORK_PAGE_SIZE*2),
             pagingSourceFactory = { RecipePagingSource(service = service,query = query,sort = sort,mapper = listMapper) }
         ).flow
+    }
+
+    override suspend fun addFavorite(recipe: Recipe) {
+        recipeLocalDataSource.addFavorite(dataMappersFacade.mapDomainRecipeToLocal(recipe))
+    }
+
+    override fun getFavoriteRecipes(): Flow<PagingData<Recipe>> {
+        return Pager(
+            PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false,initialLoadSize = NETWORK_PAGE_SIZE*2)
+        ){
+            recipeLocalDataSource.getFavoriteRecipes()
+        }.flow.map {pagingData-> pagingData.map { dataMappersFacade.mapLocalRecipeToDomain(it) } }
     }
 
     companion object {

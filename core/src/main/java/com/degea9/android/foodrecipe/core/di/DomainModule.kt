@@ -4,6 +4,8 @@ import com.degea9.android.foodrecipe.domain.GetPopularRecipeUsecase
 import com.degea9.android.foodrecipe.domain.GetRecipeDetailUseCase
 import com.degea9.android.foodrecipe.domain.SearchRecipeUsecase
 import com.degea9.android.foodrecipe.domain.dispatcher.UseCaseDispatchers
+import com.degea9.android.foodrecipe.domain.favorite.AddFavoriteRecipeUseCase
+import com.degea9.android.foodrecipe.domain.favorite.GetFavoriteRecipesUseCase
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
 import dagger.Module
 import dagger.Provides
@@ -31,5 +33,17 @@ class DomainModule {
     @Provides
     fun provideGetRecipeDetailUsecase(recipeRepository: RecipeRepository,useCaseDispatchers: UseCaseDispatchers):GetRecipeDetailUseCase{
         return GetRecipeDetailUseCase(recipeRepository,useCaseDispatchers)
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideGetFavoriteRecipesUseCase(recipeRepository: RecipeRepository,useCaseDispatchers: UseCaseDispatchers):GetFavoriteRecipesUseCase{
+        return GetFavoriteRecipesUseCase(recipeRepository,useCaseDispatchers)
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideAddFavoriteRecipesUseCase(recipeRepository: RecipeRepository,useCaseDispatchers: UseCaseDispatchers):AddFavoriteRecipeUseCase{
+        return AddFavoriteRecipeUseCase(recipeRepository,useCaseDispatchers)
     }
 }

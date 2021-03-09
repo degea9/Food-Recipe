@@ -21,3 +21,12 @@ fun setImageUrl(view: ImageView, path: String?) {
         e.printStackTrace()
     }
 }
+
+@BindingAdapter("imageState")
+fun setImageState(imageView :ImageView,isFavorite:Boolean?){
+    isFavorite?.let {
+        val stateSet =
+            intArrayOf(android.R.attr.state_checked * if (isFavorite) 1 else -1)
+        imageView.setImageState(stateSet, true)
+    }
+}
