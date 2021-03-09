@@ -8,5 +8,5 @@ interface SuggestionKeywordRepository {
 
     fun getLocalSuggestionKeyword(): Flow<SuggestionKeyword>
 
-    suspend fun saveSuggestionKeyword(suggestion: SuggestionKeyword)
+    fun saveSuggestionKeyword(suggestion: SuggestionKeyword)
 }
