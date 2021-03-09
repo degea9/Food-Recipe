@@ -4,15 +4,13 @@ import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.degea9.android.foodrecipe.core.BaseViewModel
-import com.degea9.android.foodrecipe.domain.GetSuggestionKeywordUseCase
+import com.degea9.android.foodrecipe.domain.search.GetSuggestionKeywordUseCase
 import com.degea9.android.foodrecipe.domain.SearchRecipeUsecase
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import javax.inject.Inject
 
 @HiltViewModel
