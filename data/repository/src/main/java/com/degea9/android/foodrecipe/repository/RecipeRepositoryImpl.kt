@@ -53,6 +53,12 @@ class RecipeRepositoryImpl @Inject constructor(
         }.flow.map {pagingData-> pagingData.map { dataMappersFacade.mapLocalRecipeToDomain(it) } }
     }
 
+    override fun getHistoryRecipes(): Flow<Recipe> {
+        return recipeLocalDataSource.getHistoryRecipes().map {
+            dataMappersFacade.mapLocalRecipeToDomain(it)
+        }
+    }
+
     companion object {
         const val NETWORK_PAGE_SIZE = 10
     }
