@@ -1,4 +1,4 @@
-package com.degea9.android.foodrecipe.domain
+package com.degea9.android.foodrecipe.domain.search
 
 import com.degea9.android.foodrecipe.domain.dispatcher.UseCaseDispatchers
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
