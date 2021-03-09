@@ -23,7 +23,9 @@ class DataMappersFacade @Inject constructor() {
         return RecipeEntity(
             id = input.id,
             title = input.title,
-            image = input.image
+            image = input.image,
+            isFavourite = false,
+            isHistory = false
         )
     }
 }
