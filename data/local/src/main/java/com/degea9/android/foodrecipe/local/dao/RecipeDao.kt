@@ -3,18 +3,19 @@ package com.degea9.android.foodrecipe.local.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.degea9.android.foodrecipe.local.entity.RecipeEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecipeDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(recipeEntity: RecipeEntity): Long
+    fun insert(recipeEntity: RecipeEntity): Long
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun update(recipeEntity: RecipeEntity)
+    fun update(recipeEntity: RecipeEntity)
 
     @Transaction
-    suspend fun upsert(recipeEntity: RecipeEntity){
+    fun upsert(recipeEntity: RecipeEntity){
         val result = insert(recipeEntity)
 
         if(result == -1L){
@@ -27,5 +28,8 @@ interface RecipeDao {
 
     @Query("SELECT * FROM recipes WHERE id=:id")
     fun getRecipeById(id: Int): RecipeEntity
+
+    @Query("SELECT * FROM recipes WHERE isHistory = 1")
+    fun getHistoryRecipes(): Flow<RecipeEntity>
 
 }

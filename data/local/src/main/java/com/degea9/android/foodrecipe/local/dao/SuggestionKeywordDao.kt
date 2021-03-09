@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SuggestionKeywordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertKeyword(keywordEntity: SuggestionKeywordEntity)
+    fun insertKeyword(keywordEntity: SuggestionKeywordEntity)
 
     @Query("SELECT * FROM suggestionKeyword ORDER BY search_time DESC LIMIT 5 ")
     fun getSuggestionKeyword(): Flow<SuggestionKeywordEntity>

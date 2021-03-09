@@ -21,8 +21,8 @@ abstract class AppDatabase : RoomDatabase() {
         val MIGRATTION_1_2 = object : Migration(1,2){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `suggestionKeyword` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `search_time` INTEGER NOT NULL, `keyword` TEXT NOT NULL)")
-                database.execSQL("ALTER TABLE recipes ADD COLUMN isFavourite INTEGER")
-                database.execSQL("ALTER TABLE recipes ADD COLUMN isHistory INTEGER")
+                database.execSQL("ALTER TABLE recipes ADD COLUMN isFavourite INTEGER NOT NULL DEFAULT 0")
+                database.execSQL("ALTER TABLE recipes ADD COLUMN isHistory INTEGER NOT NULL DEFAULT 0")
             }
 
         }
