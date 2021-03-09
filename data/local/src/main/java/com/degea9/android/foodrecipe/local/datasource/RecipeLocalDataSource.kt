@@ -14,7 +14,7 @@ interface RecipeLocalDataSource {
 
 class RecipeLocalDataSourceImpl (private val recipeDao: RecipeDao): RecipeLocalDataSource{
     override suspend fun addFavorite(recipeEntity: RecipeEntity) {
-        recipeDao.addFavorite(recipeEntity)
+        recipeDao.upsert(recipeEntity)
     }
 
     override fun getFavoriteRecipes(): PagingSource<Int, RecipeEntity> = recipeDao.getFavoriteRecipes()
