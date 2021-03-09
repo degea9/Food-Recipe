@@ -35,8 +35,7 @@ object RepositoryModule {
     @Provides
     fun provideSuggestionKeywordRepository(suggestionKeywordLocalDataSource: SuggestionKeywordLocalDataSource,
                                            suggestionKeywordRemoteDataSource: SuggestionKeywordRemoteDataSource,
-                                           suggestionKeyWordListMapper: SuggestionKeywordDataListMapper,
-                                           localSuggestionKeywordDataMapper: LocalSuggestionKeywordDataMapper) : SuggestionKeywordRepository{
-        return SuggestionKeywordRepositoryImpl(suggestionKeywordLocalDataSource, suggestionKeywordRemoteDataSource, suggestionKeyWordListMapper, localSuggestionKeywordDataMapper)
+                                           mapper: DataMappersFacade) : SuggestionKeywordRepository{
+        return SuggestionKeywordRepositoryImpl(suggestionKeywordLocalDataSource, suggestionKeywordRemoteDataSource, mapper)
     }
 }
