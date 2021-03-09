@@ -5,14 +5,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.degea9.android.foodrecipe.domain.model.Recipe
-import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
 import com.degea9.android.foodrecipe.local.datasource.RecipeLocalDataSource
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataListMapper
 import com.degea9.android.foodrecipe.repository.mapper.RecipeDataMapper
-import com.degea9.android.foodrecipe.repository.mapper.SuggestionKeywordDataListMapper
-import com.degea9.android.foodrecipe.repository.mapper.local.LocalSuggestionKeywordDataMapper
 import com.degea9.android.foodrecipe.repository.mapper.*
 import com.degea9.foodrecipe.remote.FoodRecipeService
 import kotlinx.coroutines.flow.Flow
