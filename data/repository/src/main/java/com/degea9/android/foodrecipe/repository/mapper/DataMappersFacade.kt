@@ -1,7 +1,10 @@
 package com.degea9.android.foodrecipe.repository.mapper
 
 import com.degea9.android.foodrecipe.domain.model.Recipe
+import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.local.entity.RecipeEntity
+import com.degea9.android.foodrecipe.local.entity.SuggestionKeywordEntity
+import com.degea9.android.foodrecipe.remote.response.SuggestionKeywordResponse
 import javax.inject.Inject
 
 class DataMappersFacade @Inject constructor() {
@@ -27,5 +30,43 @@ class DataMappersFacade @Inject constructor() {
             isFavourite = false,
             isHistory = false
         )
+    }
+
+    fun mapDomainSuggestionKeywordToLocal(input: SuggestionKeyword?): SuggestionKeywordEntity? {
+        return input?.let {
+            SuggestionKeywordEntity(id = 0, searchTime = System.currentTimeMillis(), keyword = input.title.orEmpty())
+        }
+
+    }
+
+    fun mapLocalSuggestionKeywordToDomain(input: SuggestionKeywordEntity): SuggestionKeyword {
+        return SuggestionKeyword(
+                id = input.id,
+                title = input.keyword,
+                imageType = null
+        )
+
+    }
+
+    fun mapLocalSuggestionKeywordListToDomain(input: List<SuggestionKeywordEntity>?): List<SuggestionKeyword>? {
+        return input?.map {
+            SuggestionKeyword(
+                    id = it.id,
+                    title = it.keyword,
+                    imageType = null
+            )
+        }
+
+    }
+
+    fun mapRemoteSuggestionKeywordListToDomain(input: List<SuggestionKeywordResponse>?): List<SuggestionKeyword>? {
+        return input?.map {
+            SuggestionKeyword(
+                    id = it.id,
+                    title = it.title,
+                    imageType = it.imageType
+            )
+        }
+
     }
 }
