@@ -6,12 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "suggestionKeyword")
 data class SuggestionKeywordEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+        @PrimaryKey
+        @ColumnInfo(name = "keyword")
+        val keyword: String,
 
-    @ColumnInfo(name = "search_time")
-    val searchTime: Long,
-
-    @ColumnInfo(name = "keyword")
-    val keyword: String,
+        @ColumnInfo(name = "search_time")
+        val searchTime: Long
 )

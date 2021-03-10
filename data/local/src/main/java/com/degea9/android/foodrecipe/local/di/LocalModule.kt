@@ -28,7 +28,6 @@ object LocalModule {
                 AppDatabase::class.java,
                 DATABASE_NAME
         )
-                .addMigrations(AppDatabase.MIGRATTION_1_2)
                 .build()
     }
 

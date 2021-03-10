@@ -10,7 +10,7 @@ class SearchHistoryController(private val onRecipeClick: (recipe: Recipe) -> Uni
     override fun buildModels(data: SearchHistoryUI?) {
         data?.recipes?.let {
             val carouselItemModels = it.map { currentItem ->
-                RecipeBindingModel_()
+                SearchRecipeBindingModel_()
                         .id(currentItem.id)
                         .recipe(currentItem)
                         .clickListener { v ->

@@ -8,9 +8,10 @@ import javax.inject.Inject
 class LocalSuggestionKeywordDataListMapper @Inject constructor():
     ListMapper<SuggestionKeywordEntity, SuggestionKeyword> {
     override fun map(input: List<SuggestionKeywordEntity>?): List<SuggestionKeyword>? {
+        var i=0
         return input?.map {
             SuggestionKeyword(
-                id = it.id,
+                id = i++,
                 title = it.keyword,
                 imageType = null
             )

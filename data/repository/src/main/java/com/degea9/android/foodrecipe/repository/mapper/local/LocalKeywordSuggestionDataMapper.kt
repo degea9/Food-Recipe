@@ -10,7 +10,7 @@ class LocalSuggestionKeywordDataMapper @Inject constructor():
     Mapper<SuggestionKeywordEntity, SuggestionKeyword> {
     override fun map(input: SuggestionKeywordEntity): SuggestionKeyword {
         return SuggestionKeyword(
-                id = input.id,
+                id = 0,
                 title = input.keyword,
                 imageType = null
         )

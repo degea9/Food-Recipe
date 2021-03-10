@@ -66,14 +66,14 @@ class DataMappersFacade @Inject constructor() {
 
     fun mapDomainSuggestionKeywordToLocal(input: SuggestionKeyword?): SuggestionKeywordEntity? {
         return input?.let {
-            SuggestionKeywordEntity(id = 0, searchTime = System.currentTimeMillis(), keyword = input.title.orEmpty())
+            SuggestionKeywordEntity(searchTime = System.currentTimeMillis(), keyword = input.title.orEmpty())
         }
 
     }
 
     fun mapLocalSuggestionKeywordToDomain(input: SuggestionKeywordEntity): SuggestionKeyword {
         return SuggestionKeyword(
-                id = input.id,
+                id = null,
                 title = input.keyword,
                 imageType = null
         )
@@ -81,9 +81,10 @@ class DataMappersFacade @Inject constructor() {
     }
 
     fun mapLocalSuggestionKeywordListToDomain(input: List<SuggestionKeywordEntity>?): List<SuggestionKeyword>? {
+        var i = 0
         return input?.map {
             SuggestionKeyword(
-                    id = it.id,
+                    id = i++,
                     title = it.keyword,
                     imageType = null
             )
