@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetHistoryRecipesUseCase @Inject constructor(
         private val recipesRepository: RecipeRepository
 ) {
-    fun getHistoryRecipes(): Flow<Recipe>{
+    fun getHistoryRecipes(): Flow<List<Recipe>>{
         return recipesRepository.getHistoryRecipes()
     }
 }
