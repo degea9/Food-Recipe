@@ -22,6 +22,22 @@ class DataMappersFacade @Inject constructor() {
         )
     }
 
+    fun mapLocalRecipeToDomainOrNull(input: RecipeEntity?): Recipe? {
+        return input?.let {
+            Recipe(
+                    id = it.id ?: 0,
+                    title = it.title,
+                    summary = "",
+                    image = it.image,
+                    imageType = "",
+                    sourceName = "",
+                    dishTypes = emptyList(),
+                    analyzedInstructions = null,
+                    extendedIngredients = null
+            )
+        }
+    }
+
     fun mapDomainRecipeToLocal(input:Recipe):RecipeEntity {
         return RecipeEntity(
             id = input.id,
@@ -30,6 +46,22 @@ class DataMappersFacade @Inject constructor() {
             isFavourite = false,
             isHistory = false
         )
+    }
+
+    fun mapLocalRecipesToDomain(input: List<RecipeEntity>?): List<Recipe>{
+        return input?.map {
+            Recipe(
+                    id = it.id,
+                    title = it.title,
+                    summary = null,
+                    image = it.image,
+                    imageType = null,
+                    sourceName = null,
+                    dishTypes = null,
+                    analyzedInstructions = null,
+                    extendedIngredients = null
+            )
+        }?: emptyList()
     }
 
     fun mapDomainSuggestionKeywordToLocal(input: SuggestionKeyword?): SuggestionKeywordEntity? {
