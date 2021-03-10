@@ -9,11 +9,8 @@ import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.domain.search.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,10 +34,15 @@ class SearchViewModel @Inject constructor(
     private var _searchHistoryLiveData = MutableLiveData<SearchHistoryUI>()
     var searchHistoryLiveData: LiveData<SearchHistoryUI> = _searchHistoryLiveData
 
+    var searchSuggestionJob: Job? = null
+    var searchHistoryJob: Job? =null
+
     /**
      * TO-DO :not hardcode using flow for search filter such as sort,
      */
     fun searchRecipe(query: String):Flow<PagingData<Recipe>>? {
+        searchHistoryJob?.cancel()
+        searchSuggestionJob?.cancel()
         val lastResult = currentSearchResult
         if (query == currentQueryValue && lastResult != null) {
             return lastResult
@@ -52,13 +54,15 @@ class SearchViewModel @Inject constructor(
     }
 
     fun getSuggestKeyword(query: String, number: Int){
-        viewModelScope.launch {
+        searchHistoryJob?.cancel()
+        searchSuggestionJob = viewModelScope.launch {
             _suggestionLiveData.postValue(getSuggestionUseCase.getRemoteSuggestionKeyword(query, number))
         }
     }
 
     fun getSearchHistory(){
-        viewModelScope.launch {
+        searchSuggestionJob?.cancel()
+        searchHistoryJob = viewModelScope.launch {
             val keyword = async(Dispatchers.IO){
                 getLocalKeywordUseCase.getLocalSuggestionKeyword()
             }
