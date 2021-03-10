@@ -17,5 +17,9 @@ interface RecipeRepository {
 
     fun getFavoriteRecipes() : Flow<PagingData<Recipe>>
 
-    fun getHistoryRecipes() : Flow<Recipe>
+    fun getHistoryRecipes() : Flow<List<Recipe>>
+
+    suspend fun addHistoryRecipes(recipe: Recipe)
+
+
 }
