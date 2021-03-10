@@ -12,4 +12,8 @@ data class RecipeEntity (
 
     @ColumnInfo(name = "image")  val image: String?,
 
+    @ColumnInfo(name = "isFavourite") var isFavourite: Boolean,
+
+    @ColumnInfo(name = "isHistory") var isHistory: Boolean
+
 )

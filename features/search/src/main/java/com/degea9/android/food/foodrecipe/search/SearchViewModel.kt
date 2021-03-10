@@ -4,22 +4,27 @@ import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.degea9.android.foodrecipe.core.BaseViewModel
-import com.degea9.android.foodrecipe.domain.GetSuggestionKeywordUseCase
 import com.degea9.android.foodrecipe.domain.SearchRecipeUsecase
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
+import com.degea9.android.foodrecipe.domain.search.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRecipeUseCase: SearchRecipeUsecase,
     private val getSuggestionUseCase: GetSuggestionKeywordUseCase,
-    private val savedStateHandle: SavedStateHandle
+    private val getLocalKeywordUseCase: GetLocalKeywordUseCase,
+    private val getHistoryRecipesUseCase: GetHistoryRecipesUseCase,
+    private val saveLocalSuggestionKeywordUseCase: SaveLocalSuggestionKeywordUseCase,
+    private val addHistoryRecipesUseCase: AddHistoryRecipesUseCase
 ) : BaseViewModel() {
 
     private var currentQueryValue: String? = null
@@ -28,6 +33,9 @@ class SearchViewModel @Inject constructor(
 
     private var _suggestionLiveData = MutableLiveData<List<SuggestionKeyword>>()
     var suggestionLiveData: LiveData<List<SuggestionKeyword>> = _suggestionLiveData
+
+    private var _searchHistoryLiveData = MutableLiveData<SearchHistoryUI>()
+    var searchHistoryLiveData: LiveData<SearchHistoryUI> = _searchHistoryLiveData
 
     /**
      * TO-DO :not hardcode using flow for search filter such as sort,
@@ -45,8 +53,38 @@ class SearchViewModel @Inject constructor(
 
     fun getSuggestKeyword(query: String, number: Int){
         viewModelScope.launch {
-            _suggestionLiveData.postValue(getSuggestionUseCase.getSuggestionKeyword(query, number))
+            _suggestionLiveData.postValue(getSuggestionUseCase.getRemoteSuggestionKeyword(query, number))
         }
     }
+
+    fun getSearchHistory(){
+        viewModelScope.launch {
+            val keyword = async(Dispatchers.IO){
+                getLocalKeywordUseCase.getLocalSuggestionKeyword()
+            }
+            val recipesHistory = async(Dispatchers.IO) {
+                getHistoryRecipesUseCase.getHistoryRecipes()
+            }
+            val keywordResult = keyword.await()
+            val recipesHistoryResult = recipesHistory.await()
+
+            Timber.d("getSearchHistory: ${recipesHistoryResult.first()}")
+            _searchHistoryLiveData.postValue(SearchHistoryUI(recipesHistoryResult.first(), keywordResult.first()))
+
+        }
+    }
+    fun saveSuggestionKeyword(suggestionKeyword: SuggestionKeyword){
+        GlobalScope.launch(Dispatchers.IO) {
+            Timber.d("saveKeyword: call")
+            saveLocalSuggestionKeywordUseCase.saveKeyword(suggestionKeyword)
+        }
+    }
+    fun addHistoryRecipe(recipe: Recipe){
+        GlobalScope.launch(Dispatchers.IO){
+            addHistoryRecipesUseCase.addHistoryRecipes(recipe)
+        }
+    }
+
+
 
 }

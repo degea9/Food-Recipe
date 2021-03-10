@@ -5,10 +5,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.degea9.android.foodrecipe.domain.model.Recipe
-import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
 import com.degea9.android.foodrecipe.local.datasource.RecipeLocalDataSource
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
+import com.degea9.android.foodrecipe.repository.mapper.RecipeDataListMapper
+import com.degea9.android.foodrecipe.repository.mapper.RecipeDataMapper
 import com.degea9.android.foodrecipe.repository.mapper.*
 import com.degea9.foodrecipe.remote.FoodRecipeService
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +23,6 @@ class RecipeRepositoryImpl @Inject constructor(
     private val recipeLocalDataSource: RecipeLocalDataSource,
     private val listMapper: RecipeDataListMapper,
     private val recipeMapper:RecipeDataMapper,
-    private val suggestionKeyWordListMapper: SuggestionKeywordDataListMapper,
     private val dataMappersFacade: DataMappersFacade
 ) : RecipeRepository {
     override suspend fun getCategoryRecipes(category: String): List<Recipe> {
@@ -41,10 +41,6 @@ class RecipeRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override suspend fun getSuggestionKeyword(query: String, number: Int): List<SuggestionKeyword> {
-        return suggestionKeyWordListMapper.map(recipeRemoteDataSource.getSuggestionKeyword(query, number)).orEmpty()
-    }
-
     override suspend fun addFavorite(recipe: Recipe) {
         recipeLocalDataSource.addFavorite(dataMappersFacade.mapDomainRecipeToLocal(recipe))
     }
@@ -55,6 +51,16 @@ class RecipeRepositoryImpl @Inject constructor(
         ){
             recipeLocalDataSource.getFavoriteRecipes()
         }.flow.map {pagingData-> pagingData.map { dataMappersFacade.mapLocalRecipeToDomain(it) } }
+    }
+
+    override fun getHistoryRecipes(): Flow<List<Recipe>> {
+        return recipeLocalDataSource.getHistoryRecipes().map {
+            dataMappersFacade.mapLocalRecipesToDomain(it)
+        }
+    }
+
+    override suspend fun addHistoryRecipes(recipe: Recipe) {
+        recipeLocalDataSource.addHistory(dataMappersFacade.mapDomainRecipeToLocal(recipe))
     }
 
     companion object {

@@ -1,6 +1,5 @@
 package com.degea9.android.food.foodrecipe.search
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.degea9.android.food.foodrecipe.search.databinding.FragmentSearchBinding
 import com.degea9.android.foodrecipe.core.BaseFragment
 import com.degea9.android.foodrecipe.domain.model.Recipe
+import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
@@ -30,7 +30,10 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     //controller for epoxy recyclerview
     private val pagingController = SearchResultPagingController(::onItemClick)
 
-    private val suggestionController = SuggestionController(::onSuggestionClick)
+    private val suggestionController = SuggestionController(::onSuggestionClick, ::onSeeAllClick)
+
+    private val historyController = SearchHistoryController(::onItemClick, ::onSuggestionClick)
+
     private var searchJob: Job? = null
 
     override fun onCreateView(
@@ -51,22 +54,6 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         binding.edtSearch.setText(query)
     }
 
-    private fun focusOnSearchBar(){
-        binding.edtSearch.requestFocus()
-        showKeyboard()
-    }
-
-    fun showKeyboard(){
-        val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE)  as InputMethodManager?
-        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-    }
-    fun hideKeyboard(){
-        val view = requireView()
-        view.let {
-            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE)  as InputMethodManager?
-            imm?.hideSoftInputFromWindow(it.windowToken, 0)
-        }
-    }
     private fun setupEditTextSearch(){
         val watcher = object : TextWatcher {
             private var searchFor = ""
@@ -82,8 +69,12 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
                     delay(300)  //debounce timeOut
                     if (searchText != searchFor)
                         return@launch
-                    searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
-                    // do our magic here
+                    if(searchText.isNotEmpty()){
+                        searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
+                    }
+                    else {
+                        searchViewModel.getSearchHistory()
+                    }
                 }
             }
             override fun afterTextChanged(s: Editable?) = Unit
@@ -93,7 +84,6 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     }
     private fun setup(){
         setupEditTextSearch()
-        focusOnSearchBar()
         binding.rvSearchResult.adapter = pagingController.adapter
         binding.rvSearchResult.setItemSpacingPx(30)
         binding.edtSearch.setOnKeyListener { _, keyCode, event ->
@@ -113,18 +103,29 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
                 false
             }
         }
-
         binding.rvSearchSuggestion.adapter = suggestionController.adapter
         binding.rvSearchSuggestion.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding.rvSearchHistory.adapter = historyController.adapter
+        binding.rvSearchHistory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
     }
 
     private fun setUpObserver(){
         searchViewModel.suggestionLiveData.observe(viewLifecycleOwner){
-            binding.rvSearchSuggestion.visibility = View.VISIBLE
+            binding.rvSearchHistory.visibility = View.GONE
             binding.rvSearchResult.visibility = View.GONE
+            binding.rvSearchSuggestion.visibility = View.VISIBLE
             suggestionController.setData(it)
         }
+
+        searchViewModel.searchHistoryLiveData.observe(viewLifecycleOwner){
+            binding.rvSearchHistory.visibility = View.VISIBLE
+            binding.rvSearchResult.visibility = View.GONE
+            binding.rvSearchSuggestion.visibility = View.GONE
+            historyController.setData(it)
+        }
+        searchViewModel.getSearchHistory()
     }
 
     private fun updateRepoListFromInput() {
@@ -136,8 +137,12 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     }
 
     private fun search(query: String) {
-        binding.rvSearchSuggestion.visibility = View.GONE
-        binding.rvSearchResult.visibility = View.VISIBLE
+        if(query.isNotEmpty()){
+            binding.rvSearchHistory.visibility = View.GONE
+            binding.rvSearchResult.visibility = View.VISIBLE
+            binding.rvSearchSuggestion.visibility = View.GONE
+            searchViewModel.saveSuggestionKeyword(SuggestionKeyword(null, query, null))
+        }
         hideKeyboard()
         if (query != DEFAULT_QUERY) {
             //cancel the previous job before creating a new one
@@ -152,6 +157,8 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private fun onItemClick(recipe: Recipe?){
         recipe?.let {
+            Timber.d("ADDHISTORY: onItemClick")
+            searchViewModel.addHistoryRecipe(it)
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(
                     it.id
@@ -169,6 +176,16 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         query?.let {
             search(it)
         }
+    }
+
+    private fun onSeeAllClick(){
+        search(binding.edtSearch.text.toString())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.edtSearch.requestFocus()
+        showKeyboard()
     }
 
     companion object {

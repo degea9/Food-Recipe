@@ -12,9 +12,14 @@ interface RecipeRepository {
 
     fun searchRecipe(query:String,sort:String):Flow<PagingData<Recipe>>
 
-    suspend fun getSuggestionKeyword(query: String, number: Int): List<SuggestionKeyword>
 
     suspend fun addFavorite(recipe: Recipe)
 
     fun getFavoriteRecipes() : Flow<PagingData<Recipe>>
+
+    fun getHistoryRecipes() : Flow<List<Recipe>>
+
+    suspend fun addHistoryRecipes(recipe: Recipe)
+
+
 }
