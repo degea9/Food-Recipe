@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
      */
     private fun setupBottomNavigationBar() {
         val bottomNavigationView = nav_view
-        val navGraphIds = listOf(R.navigation.nav_home, R.navigation.nav_favorite)
+        val navGraphIds = listOf(R.navigation.nav_home, R.navigation.nav_favorite, R.navigation.nav_meal_plan)
 
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView.setupWithNavController1(
