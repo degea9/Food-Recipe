@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface SuggestionKeywordLocalDataSource {
     fun insertKeyword(keywordEntity: SuggestionKeywordEntity)
 
-    fun getLocalSuggestionKeyword(): Flow<SuggestionKeywordEntity>
+    fun getLocalSuggestionKeyword(): Flow<List<SuggestionKeywordEntity>>
 
 }
 
@@ -16,5 +16,5 @@ class SuggestionKeywordLocalDataSourceImpl(private val suggestionKeywordDao: Sug
         suggestionKeywordDao.insertKeyword(keywordEntity)
     }
 
-    override fun getLocalSuggestionKeyword(): Flow<SuggestionKeywordEntity> = suggestionKeywordDao.getSuggestionKeyword()
+    override fun getLocalSuggestionKeyword(): Flow<List<SuggestionKeywordEntity>> = suggestionKeywordDao.getSuggestionKeyword()
 }

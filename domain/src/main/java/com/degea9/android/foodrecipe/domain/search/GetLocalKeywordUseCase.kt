@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetLocalKeywordUseCase @Inject constructor(
     private val suggestionKeywordRepo: SuggestionKeywordRepository,
 ) {
-    fun getLocalSuggestionKeyword():Flow<SuggestionKeyword> {
+    fun getLocalSuggestionKeyword():Flow<List<SuggestionKeyword>> {
         return  suggestionKeywordRepo.getLocalSuggestionKeyword()
     }
 }

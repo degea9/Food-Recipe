@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface SuggestionKeywordRepository {
     suspend fun getRemoteSuggestionKeyword(query: String, number: Int): List<SuggestionKeyword>
 
-    fun getLocalSuggestionKeyword(): Flow<SuggestionKeyword>
+    fun getLocalSuggestionKeyword(): Flow<List<SuggestionKeyword>>
 
     fun saveSuggestionKeyword(suggestion: SuggestionKeyword)
 }

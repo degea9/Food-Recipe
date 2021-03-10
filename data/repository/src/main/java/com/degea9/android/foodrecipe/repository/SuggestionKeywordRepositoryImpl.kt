@@ -19,9 +19,9 @@ class SuggestionKeywordRepositoryImpl @Inject constructor(private val suggestion
         return mapper.mapRemoteSuggestionKeywordListToDomain(suggestionKeywordRemoteDataSource.getSuggestionKeyword(query, number)).orEmpty()
     }
 
-    override fun getLocalSuggestionKeyword(): Flow<SuggestionKeyword> {
+    override fun getLocalSuggestionKeyword(): Flow<List<SuggestionKeyword>> {
         return suggestionKeywordLocalDataSource.getLocalSuggestionKeyword().map {
-            mapper.mapLocalSuggestionKeywordToDomain(it)
+                mapper.mapLocalSuggestionKeywordListToDomain(it)?: emptyList()
         }
     }
 

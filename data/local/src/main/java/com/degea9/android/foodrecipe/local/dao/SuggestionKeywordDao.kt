@@ -13,6 +13,6 @@ interface SuggestionKeywordDao {
     fun insertKeyword(keywordEntity: SuggestionKeywordEntity)
 
     @Query("SELECT * FROM suggestionKeyword ORDER BY search_time DESC LIMIT 5 ")
-    fun getSuggestionKeyword(): Flow<SuggestionKeywordEntity>
+    fun getSuggestionKeyword(): Flow<List<SuggestionKeywordEntity>>
 
 }
