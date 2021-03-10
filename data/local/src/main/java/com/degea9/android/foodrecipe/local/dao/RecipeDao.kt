@@ -1,5 +1,6 @@
 package com.degea9.android.foodrecipe.local.dao
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.degea9.android.foodrecipe.local.entity.RecipeEntity
@@ -27,9 +28,28 @@ interface RecipeDao {
     fun getFavoriteRecipes() : PagingSource<Int,RecipeEntity>
 
     @Query("SELECT * FROM recipes WHERE id=:id")
-    fun getRecipeById(id: Int): RecipeEntity
+    suspend fun getRecipeById(id: Int): RecipeEntity?
 
     @Query("SELECT * FROM recipes WHERE isHistory = 1")
-    fun getHistoryRecipes(): Flow<RecipeEntity>
+    fun getHistoryRecipes(): Flow<List<RecipeEntity>>
+
+    @Transaction
+    suspend fun addHistory(recipeEntity: RecipeEntity){
+        try{
+            val result = getRecipeById(recipeEntity.id)
+            if(result==null){
+                recipeEntity.isHistory = true
+                upsert(recipeEntity)
+            }
+            else {
+                result.isHistory = true
+                upsert(result)
+            }
+        }
+        catch (t: Throwable){
+            Log.d("ADDHISTORY ",t.toString())
+        }
+
+    }
 
 }
