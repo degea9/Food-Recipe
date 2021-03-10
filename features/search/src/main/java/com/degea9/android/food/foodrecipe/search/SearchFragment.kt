@@ -1,6 +1,5 @@
 package com.degea9.android.food.foodrecipe.search
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.degea9.android.food.foodrecipe.search.databinding.FragmentSearchBinding
 import com.degea9.android.foodrecipe.core.BaseFragment
 import com.degea9.android.foodrecipe.domain.model.Recipe
+import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
@@ -31,6 +31,9 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     private val pagingController = SearchResultPagingController(::onItemClick)
 
     private val suggestionController = SuggestionController(::onSuggestionClick, ::onSeeAllClick)
+
+    private val historyController = SearchHistoryController(::onItemClick, ::onSuggestionClick)
+
     private var searchJob: Job? = null
 
     override fun onCreateView(
@@ -67,11 +70,16 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
                     if (searchText != searchFor)
                         return@launch
                     if(searchText.isNotEmpty()){
+                        binding.rvSearchHistory.visibility = View.GONE
+                        binding.rvSearchResult.visibility = View.VISIBLE
+                        binding.rvSearchSuggestion.visibility = View.VISIBLE
                         searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
                     }
                     else {
+                        searchViewModel.getSearchHistory()
                         binding.rvSearchResult.visibility = View.GONE
                         binding.rvSearchSuggestion.visibility = View.GONE
+                        binding.rvSearchHistory.visibility = View.VISIBLE
                     }
                 }
             }
@@ -104,6 +112,9 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         binding.rvSearchSuggestion.adapter = suggestionController.adapter
         binding.rvSearchSuggestion.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+        binding.rvSearchHistory.adapter = historyController.adapter
+        binding.rvSearchHistory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
     }
 
     private fun setUpObserver(){
@@ -118,6 +129,15 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
             binding.rvSearchResult.visibility = View.GONE
             suggestionController.setData(it)
         }
+
+        searchViewModel.searchHistoryLiveData.observe(viewLifecycleOwner){
+            Timber.d("SearchHistory: ${it}")
+            binding.rvSearchHistory.visibility = View.VISIBLE
+            binding.rvSearchResult.visibility = View.GONE
+            binding.rvSearchSuggestion.visibility =View.GONE
+            historyController.setData(it)
+        }
+        searchViewModel.getSearchHistory()
     }
 
     private fun updateRepoListFromInput() {
@@ -129,6 +149,10 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     }
 
     private fun search(query: String) {
+        if(query.isNotEmpty()){
+            searchViewModel.saveSuggestionKeyword(SuggestionKeyword(null, query, null))
+        }
+        binding.rvSearchHistory.visibility= View.GONE
         binding.rvSearchSuggestion.visibility = View.GONE
         binding.rvSearchResult.visibility = View.VISIBLE
         hideKeyboard()
@@ -145,6 +169,8 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private fun onItemClick(recipe: Recipe?){
         recipe?.let {
+            Timber.d("ADDHISTORY: onItemClick")
+            searchViewModel.addHistoryRecipe(it)
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(
                     it.id
