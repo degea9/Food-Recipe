@@ -70,16 +70,10 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
                     if (searchText != searchFor)
                         return@launch
                     if(searchText.isNotEmpty()){
-                        binding.rvSearchHistory.visibility = View.GONE
-                        binding.rvSearchResult.visibility = View.VISIBLE
-                        binding.rvSearchSuggestion.visibility = View.VISIBLE
                         searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
                     }
                     else {
                         searchViewModel.getSearchHistory()
-                        binding.rvSearchResult.visibility = View.GONE
-                        binding.rvSearchSuggestion.visibility = View.GONE
-                        binding.rvSearchHistory.visibility = View.VISIBLE
                     }
                 }
             }
@@ -119,22 +113,16 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private fun setUpObserver(){
         searchViewModel.suggestionLiveData.observe(viewLifecycleOwner){
-            if(it.isEmpty()){
-                binding.rvSearchSuggestion.visibility = View.GONE
-
-            }
-            else {
-                binding.rvSearchSuggestion.visibility = View.VISIBLE
-            }
+            binding.rvSearchHistory.visibility = View.GONE
             binding.rvSearchResult.visibility = View.GONE
+            binding.rvSearchSuggestion.visibility = View.VISIBLE
             suggestionController.setData(it)
         }
 
         searchViewModel.searchHistoryLiveData.observe(viewLifecycleOwner){
-            Timber.d("SearchHistory: ${it}")
             binding.rvSearchHistory.visibility = View.VISIBLE
             binding.rvSearchResult.visibility = View.GONE
-            binding.rvSearchSuggestion.visibility =View.GONE
+            binding.rvSearchSuggestion.visibility = View.GONE
             historyController.setData(it)
         }
         searchViewModel.getSearchHistory()
@@ -150,11 +138,11 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private fun search(query: String) {
         if(query.isNotEmpty()){
+            binding.rvSearchHistory.visibility = View.GONE
+            binding.rvSearchResult.visibility = View.VISIBLE
+            binding.rvSearchSuggestion.visibility = View.GONE
             searchViewModel.saveSuggestionKeyword(SuggestionKeyword(null, query, null))
         }
-        binding.rvSearchHistory.visibility= View.GONE
-        binding.rvSearchSuggestion.visibility = View.GONE
-        binding.rvSearchResult.visibility = View.VISIBLE
         hideKeyboard()
         if (query != DEFAULT_QUERY) {
             //cancel the previous job before creating a new one
