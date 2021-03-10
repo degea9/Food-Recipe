@@ -53,10 +53,14 @@ class RecipeRepositoryImpl @Inject constructor(
         }.flow.map {pagingData-> pagingData.map { dataMappersFacade.mapLocalRecipeToDomain(it) } }
     }
 
-    override fun getHistoryRecipes(): Flow<Recipe> {
+    override fun getHistoryRecipes(): Flow<List<Recipe>> {
         return recipeLocalDataSource.getHistoryRecipes().map {
-            dataMappersFacade.mapLocalRecipeToDomain(it)
+            dataMappersFacade.mapLocalRecipesToDomain(it)
         }
+    }
+
+    override suspend fun addHistoryRecipes(recipe: Recipe) {
+        recipeLocalDataSource.addHistory(dataMappersFacade.mapDomainRecipeToLocal(recipe))
     }
 
     companion object {
