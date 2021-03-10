@@ -1,0 +1,91 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android-extensions'
+    id "androidx.navigation.safeargs.kotlin"
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    kapt {
+        correctErrorTypes = true
+    }
+}
+
+dependencies {
+
+    //project dependencies
+    implementation(project(Modules.core))
+    implementation(project(Modules.domain))
+    implementation(project(Modules.common_android  ))
+
+    implementation (Deps.KOTLIN)
+    implementation (Deps.ANDROIDX_CORE_KTX)
+    implementation (Deps.APPCOMPAT)
+    implementation (Deps.MATERIAL)
+    implementation (Deps.CONSTRAINT_LAYOUT)
+    // Coroutines
+    implementation(Deps.COROUTINES_CORE)
+    implementation(Deps.COROUTINES_ANDROID)
+    //life cycle and viewmodel
+    implementation(Deps.LIFECYCLE_LIVEDATA_KTX)
+    implementation(Deps.LIFECYCLE_VIEWMODEL_KTX)
+
+    // Dagger Hilt
+    implementation(Deps.DAGGER_HILT_ANDROID)
+    kapt(Deps.DAGGER_HILT_COMPILER)
+    implementation(Deps.DAGGER_HILT_VIEWMODEL)
+    kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
+
+    // Navigation Components
+    implementation(Deps.NAVIGATION_FRAGMENT)
+    implementation(Deps.NAVIGATION_UI)
+    implementation(Deps.NAVIGATION_RUNTIME)
+
+    //EPOXY
+    implementation(Deps.EPOXY)
+    implementation(Deps.EPOXY_BINDING)
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt(Deps.EPOXY_ANNOTATION_PROCESSOR)
+
+    implementation(Deps.GLIDE)
+    kapt(Deps.GLIDE_COMPILER)
+
+
+    //KTX
+    implementation(Deps.ANDROIDX_FRAGMENT_KTX)
+
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation (TestDeps.ANDROIDX_JUNIT)
+    androidTestImplementation (TestDeps.ANDROIDX_ESPRESSO)
+
+    //TIMBER
+    implementation(Deps.TIMBER)
+}

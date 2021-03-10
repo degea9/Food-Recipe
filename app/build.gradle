@@ -45,6 +45,7 @@ dependencies {
     implementation(project(Modules.featureHome))
     implementation(project(Modules.featureFavorite))
     implementation(project(Modules.featureSearch))
+    implementation(project(Modules.featureMealPlan))
     implementation(project(Modules.featureCategoryRecipes))
     implementation(project(Modules.featureRecipeDetail))
     implementation(project(Modules.featureSearch))
