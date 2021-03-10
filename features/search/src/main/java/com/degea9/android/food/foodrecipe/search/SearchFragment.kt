@@ -36,6 +36,8 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private var searchJob: Job? = null
 
+    private var state: State = State.HISTORY
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,9 +72,11 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
                     if (searchText != searchFor)
                         return@launch
                     if(searchText.isNotEmpty()){
+                        state = State.SUGGESTION
                         searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
                     }
                     else {
+                        state = State.HISTORY
                         searchViewModel.getSearchHistory()
                     }
                 }
@@ -113,17 +117,22 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private fun setUpObserver(){
         searchViewModel.suggestionLiveData.observe(viewLifecycleOwner){
-            binding.rvSearchHistory.visibility = View.GONE
-            binding.rvSearchResult.visibility = View.GONE
-            binding.rvSearchSuggestion.visibility = View.VISIBLE
-            suggestionController.setData(it)
+            if(state == State.SUGGESTION){
+                binding.rvSearchHistory.visibility = View.GONE
+                binding.rvSearchResult.visibility = View.GONE
+                binding.rvSearchSuggestion.visibility = View.VISIBLE
+                suggestionController.setData(it)
+            }
         }
 
         searchViewModel.searchHistoryLiveData.observe(viewLifecycleOwner){
-            binding.rvSearchHistory.visibility = View.VISIBLE
-            binding.rvSearchResult.visibility = View.GONE
-            binding.rvSearchSuggestion.visibility = View.GONE
-            historyController.setData(it)
+            if(state == State.HISTORY){
+                binding.rvSearchHistory.visibility = View.VISIBLE
+                binding.rvSearchResult.visibility = View.GONE
+                binding.rvSearchSuggestion.visibility = View.GONE
+                historyController.setData(it)
+            }
+
         }
         searchViewModel.getSearchHistory()
     }
@@ -138,6 +147,9 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private fun search(query: String) {
         if(query.isNotEmpty()){
+            state = State.SEARCH_RESULT
+            binding.edtSearch.setText(query)
+            binding.edtSearch.setSelection(binding.edtSearch.text.length)
             binding.rvSearchHistory.visibility = View.GONE
             binding.rvSearchResult.visibility = View.VISIBLE
             binding.rvSearchSuggestion.visibility = View.GONE
@@ -192,5 +204,11 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         private const val LAST_SEARCH_QUERY: String = "last_search_query"
         private const val DEFAULT_QUERY = ""
         private const val SUGGESTION_NUMBER = 5
+    }
+
+    enum class State {
+        SUGGESTION,
+        HISTORY,
+        SEARCH_RESULT
     }
 }
