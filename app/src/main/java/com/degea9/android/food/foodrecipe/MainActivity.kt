@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
+    private var navController: NavController? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,8 +33,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
         val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController: NavController = navHostFragment.navController
-        navController.addOnDestinationChangedListener(this)
+        navController = navHostFragment.navController
+        navController?.addOnDestinationChangedListener(this)
     }
 
     /**
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     override fun onDestroy() {
         super.onDestroy()
-        findNavController(R.id.nav_host).removeOnDestinationChangedListener(this)
+        navController?.removeOnDestinationChangedListener(this)
 
     }
 
