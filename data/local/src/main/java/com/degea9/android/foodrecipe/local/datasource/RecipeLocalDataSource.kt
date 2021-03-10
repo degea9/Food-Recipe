@@ -11,9 +11,11 @@ interface RecipeLocalDataSource {
 
     fun getFavoriteRecipes() : PagingSource<Int, RecipeEntity>
 
-    fun getHistoryRecipes(): Flow<RecipeEntity>
+    fun getHistoryRecipes(): Flow<List<RecipeEntity>>
 
     fun upsert(recipeEntity: RecipeEntity)
+
+    suspend fun addHistory(recipeEntity: RecipeEntity)
 }
 
 class RecipeLocalDataSourceImpl (private val recipeDao: RecipeDao): RecipeLocalDataSource{
@@ -23,12 +25,16 @@ class RecipeLocalDataSourceImpl (private val recipeDao: RecipeDao): RecipeLocalD
 
     override fun getFavoriteRecipes(): PagingSource<Int, RecipeEntity> = recipeDao.getFavoriteRecipes()
 
-    override fun getHistoryRecipes(): Flow<RecipeEntity> {
+    override fun getHistoryRecipes(): Flow<List<RecipeEntity>> {
         return recipeDao.getHistoryRecipes()
     }
 
     override fun upsert(recipeEntity: RecipeEntity) {
         return recipeDao.upsert(recipeEntity =  recipeEntity)
+    }
+
+    override suspend fun addHistory(recipeEntity: RecipeEntity) {
+        recipeDao.addHistory(recipeEntity)
     }
 
 }
