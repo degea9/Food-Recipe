@@ -38,6 +38,8 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private var state: State = State.HISTORY
 
+    private var shouldNotifyTextChange= true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,23 +63,25 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
             private var searchFor = ""
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val searchText = s.toString().trim()
-                if (searchText == searchFor)
-                    return
+                if(shouldNotifyTextChange){
+                    val searchText = s.toString().trim()
+                    if (searchText == searchFor)
+                        return
 
-                searchFor = searchText
+                    searchFor = searchText
 
-                launch {
-                    delay(300)  //debounce timeOut
-                    if (searchText != searchFor)
-                        return@launch
-                    if(searchText.isNotEmpty()){
-                        state = State.SUGGESTION
-                        searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
-                    }
-                    else {
-                        state = State.HISTORY
-                        searchViewModel.getSearchHistory()
+                    launch {
+                        delay(300)  //debounce timeOut
+                        if (searchText != searchFor)
+                            return@launch
+                        if(searchText.isNotEmpty()){
+                            state = State.SUGGESTION
+                            searchViewModel.getSuggestKeyword(s.toString(), SUGGESTION_NUMBER)
+                        }
+                        else {
+                            state = State.HISTORY
+                            searchViewModel.getSearchHistory()
+                        }
                     }
                 }
             }
@@ -148,7 +152,9 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     private fun search(query: String) {
         if(query.isNotEmpty()){
             state = State.SEARCH_RESULT
+            shouldNotifyTextChange=false
             binding.edtSearch.setText(query)
+            shouldNotifyTextChange=true
             binding.edtSearch.setSelection(binding.edtSearch.text.length)
             binding.rvSearchHistory.visibility = View.GONE
             binding.rvSearchResult.visibility = View.VISIBLE
