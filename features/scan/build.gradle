@@ -11,9 +11,13 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    buildFeatures {
+        dataBinding = true
+    }
+
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion(AndroidVersion.MIN_SDK_VERSION)
+        targetSdkVersion(AndroidVersion.TARGET_SDK_VERSION)
         versionCode 1
         versionName "1.0"
 
@@ -44,7 +48,7 @@ dependencies {
     //project dependencies
     implementation(project(Modules.core))
     implementation(project(Modules.domain))
-    implementation(project(Modules.common_android  ))
+    implementation(project(Modules.common_android))
 
     implementation (Deps.KOTLIN)
     implementation (Deps.ANDROIDX_CORE_KTX)
@@ -88,4 +92,15 @@ dependencies {
 
     //TIMBER
     implementation(Deps.TIMBER)
+
+    //CIRCLE IMAGE VIEW
+    implementation(Deps.CIRCLE_IMAGE_VIEW)
+
+    //CAMERA X
+    implementation(Deps.CAMERA_X_CORE)
+    implementation(Deps.CAMERA_X_LIFECYCLE)
+    implementation(Deps.CAMERA_VIEW)
+
+    //Ted permission
+    implementation(Deps.TED_PERMISSION)
 }
