@@ -45,7 +45,7 @@ dependencies {
     implementation(project(Modules.featureHome))
     implementation(project(Modules.featureFavorite))
     implementation(project(Modules.featureSearch))
-    implementation(project(Modules.featureMealPlan))
+    implementation(project(Modules.featureScan))
     implementation(project(Modules.featureCategoryRecipes))
     implementation(project(Modules.featureRecipeDetail))
     implementation(project(Modules.featureSearch))
@@ -85,4 +85,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation (TestDeps.ANDROIDX_JUNIT)
     androidTestImplementation (TestDeps.ANDROIDX_ESPRESSO)
+
+    //Navigation bar
+    implementation (Deps.ZAGORI_NAVIGATION)
 }

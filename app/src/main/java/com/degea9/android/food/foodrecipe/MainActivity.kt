@@ -1,18 +1,15 @@
 package com.degea9.android.food.foodrecipe
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.degea9.android.foodrecipe.core.setupWithNavController1
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,12 +34,21 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         navController?.addOnDestinationChangedListener(this)
     }
 
+
     /**
      * Called on first creation and when restoring state.
      */
     private fun setupBottomNavigationBar() {
         val bottomNavigationView = nav_view
-        val navGraphIds = listOf(R.navigation.nav_home, R.navigation.nav_favorite, R.navigation.nav_meal_plan)
+        bottomNavigationView.itemIconTintList = null
+        val navGraphIds = listOf(R.navigation.nav_home, R.navigation.nav_scan, R.navigation.nav_favorite)
+
+        val scanItem =  bottomNavigationView.findViewById<View>(R.id.nav_scan)
+        scanItem.isClickable = false
+        iv_nav_scan.setOnClickListener {
+            scanItem.performClick()
+        }
+
 
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView.setupWithNavController1(
