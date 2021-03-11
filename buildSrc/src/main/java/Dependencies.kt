@@ -200,6 +200,9 @@ object Deps {
     // CameraX View class
      const val CAMERA_VIEW = "androidx.camera:camera-view:1.0.0-alpha14"
 
+    //Ted permission
+    const val TED_PERMISSION ="gun0912.ted:tedpermission:2.2.3"
+
 }
 
 object TestDeps {

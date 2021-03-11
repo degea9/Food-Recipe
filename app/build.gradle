@@ -88,4 +88,7 @@ dependencies {
 
     //Navigation bar
     implementation (Deps.ZAGORI_NAVIGATION)
+
+    //Ted permission
+    implementation(Deps.TED_PERMISSION)
 }
