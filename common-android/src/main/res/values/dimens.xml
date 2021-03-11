@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="_1dp">1dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="_6dp">6dp</dimen>
     <dimen name="_10dp">10dp</dimen>
     <dimen name="_16dp">16dp</dimen>
     <dimen name="_20dp">20dp</dimen>
     <dimen name="_24dp">24dp</dimen>
+    <dimen name="_26dp">26dp</dimen>
     <dimen name="_30dp">30dp</dimen>
     <dimen name="_32dp">32dp</dimen>
     <dimen name="_40dp">40dp</dimen>
     <dimen name="_48dp">48dp</dimen>
+    <dimen name="_50dp">50dp</dimen>
     <dimen name="_56dp">56dp</dimen>
     <dimen name="_64dp">64dp</dimen>
     <dimen name="_80dp">80dp</dimen>
+    <dimen name="_150dp">150dp</dimen>
     <dimen name="_15sp">15sp</dimen>
+    <dimen name="_20sp">20sp</dimen>
     <dimen name="search_text_size">@dimen/_15sp</dimen>
     <dimen name="instruction_bullet">24dp</dimen>
     <dimen name="instruction_bullet_margin">@dimen/_16dp</dimen>
