@@ -1,6 +1,5 @@
 package com.degea9.android.food.foodrecipe.scan
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +13,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.degea9.android.food.foodrecipe.scan.databinding.FragmentScanBinding
@@ -167,8 +167,9 @@ class ScanFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun acceptImage() {
-        val returnIntent = Intent()
-        returnIntent.putExtra(IMAGE_URI, imageUri)
+        imageUri?.let {
+            findNavController().navigate(ScanFragmentDirections.actionScanFragmentToScanResult(it))
+        }
     }
 
     override fun onDestroy() {
