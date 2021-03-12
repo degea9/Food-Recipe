@@ -7,6 +7,8 @@
         android:name="com.degea9.android.food.foodrecipe.scan.ScanFragment"
         android:label="fragment_scan">
         <action android:id="@+id/action_scanFragment_to_scanResult"
+            app:popUpTo="@id/scanFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/scanResultFragment"/>
     </fragment>
 
