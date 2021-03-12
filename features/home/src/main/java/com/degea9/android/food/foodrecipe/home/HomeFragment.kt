@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment() {
 
     private fun setup() {
         binding.searchHeader.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment(""))
         }
     }
 
