@@ -1,10 +1,15 @@
 package com.degea9.android.foodrecipe.repository.mapper
 
+import com.degea9.android.foodrecipe.domain.model.Category
+import com.degea9.android.foodrecipe.domain.model.ImageAnalysis
 import com.degea9.android.foodrecipe.domain.model.Recipe
 import com.degea9.android.foodrecipe.domain.model.SuggestionKeyword
 import com.degea9.android.foodrecipe.local.entity.RecipeEntity
 import com.degea9.android.foodrecipe.local.entity.SuggestionKeywordEntity
+import com.degea9.android.foodrecipe.remote.response.CategoryResponse
+import com.degea9.android.foodrecipe.remote.response.ImageAnalysisResponse
 import com.degea9.android.foodrecipe.remote.response.SuggestionKeywordResponse
+import com.degea9.foodrecipe.remote.response.RecipeResponse
 import javax.inject.Inject
 
 class DataMappersFacade @Inject constructor() {
@@ -63,6 +68,37 @@ class DataMappersFacade @Inject constructor() {
             )
         }?: emptyList()
     }
+
+    fun mapRemoteRecipesToDomain(input: List<RecipeResponse>?): List<Recipe>?{
+        return input?.map {
+            Recipe(
+                    id = it.id,
+                    title = it.title,
+                    summary = null,
+                    image = null,
+                    imageType = it.imageType,
+                    sourceName = null,
+                    dishTypes = null,
+                    analyzedInstructions = null,
+                    extendedIngredients = null
+            )
+        }
+    }
+
+    fun mapRemoteCategoryToDomain(input: CategoryResponse?): Category?{
+        return input?.let {
+            Category(name = it.name, probability = it.probability)
+        }
+    }
+
+    fun mapRemoteImageAnalysisToDomain(input: ImageAnalysisResponse?): ImageAnalysis{
+        return ImageAnalysis(category = mapRemoteCategoryToDomain(input?.category),
+                    recipes = mapRemoteRecipesToDomain(input?.recipes))
+
+    }
+
+
+
 
     fun mapDomainSuggestionKeywordToLocal(input: SuggestionKeyword?): SuggestionKeywordEntity? {
         return input?.let {
