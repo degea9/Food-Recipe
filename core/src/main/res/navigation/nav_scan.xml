@@ -2,10 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_scan"
-    app:startDestination="@id/mealPlanFragment">
-    <fragment android:id="@+id/mealPlanFragment"
+    app:startDestination="@id/scanFragment">
+    <fragment android:id="@+id/scanFragment"
         android:name="com.degea9.android.food.foodrecipe.scan.ScanFragment"
-        android:label="fragment_meal_plan">
+        android:label="fragment_scan">
+        <action android:id="@+id/action_scanFragment_to_scanResult"
+            app:destination="@id/scanResultFragment"/>
+    </fragment>
 
+    <fragment android:id="@+id/scanResultFragment"
+        android:name="com.degea9.android.food.foodrecipe.scan.ScanResultFragment"
+        android:label="fragment_scan_result">
+        <argument
+            android:name="image_uri"
+            app:argType="android.net.Uri"
+            />
     </fragment>
 </navigation>
