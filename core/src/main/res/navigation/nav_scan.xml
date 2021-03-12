@@ -19,5 +19,10 @@
             android:name="image_uri"
             app:argType="android.net.Uri"
             />
+        <action android:id="@+id/action_scanResultFragment_to_recipeDetailFragment"
+            app:destination="@+id/recipeDetailFragment"/>
+
+        <action android:id="@+id/actionn_scanResultFragment_to_searchFragment"
+            app:destination="@+id/searchFragment"/>
     </fragment>
 </navigation>
