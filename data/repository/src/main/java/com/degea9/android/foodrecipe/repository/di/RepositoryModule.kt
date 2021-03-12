@@ -1,11 +1,14 @@
 package com.degea9.android.foodrecipe.repository.di
 
+import com.degea9.android.foodrecipe.domain.repository.FoodRepository
 import com.degea9.android.foodrecipe.domain.repository.RecipeRepository
 import com.degea9.android.foodrecipe.domain.repository.SuggestionKeywordRepository
 import com.degea9.android.foodrecipe.local.datasource.RecipeLocalDataSource
 import com.degea9.android.foodrecipe.local.datasource.SuggestionKeywordLocalDataSource
+import com.degea9.android.foodrecipe.remote.datasource.FoodRemoteDataSource
 import com.degea9.android.foodrecipe.remote.datasource.RecipeRemoteDataSource
 import com.degea9.android.foodrecipe.remote.datasource.SuggestionKeywordRemoteDataSource
+import com.degea9.android.foodrecipe.repository.FoodRepositoryImpl
 import com.degea9.android.foodrecipe.repository.RecipeRepositoryImpl
 import com.degea9.android.foodrecipe.repository.SuggestionKeywordRepositoryImpl
 import com.degea9.android.foodrecipe.repository.mapper.DataMappersFacade
@@ -27,15 +30,21 @@ object RepositoryModule {
     @Singleton
     @Provides
 
-    fun provideRecipeRepository(service: FoodRecipeService,recipeRemoteDataSource: RecipeRemoteDataSource,recipeLocalDataSource: RecipeLocalDataSource,  recipeListMapper: RecipeDataListMapper,recipeDataMapper: RecipeDataMapper, dataMappersFacade: DataMappersFacade): RecipeRepository{
-        return RecipeRepositoryImpl(service,recipeRemoteDataSource,recipeLocalDataSource,recipeListMapper, recipeDataMapper,dataMappersFacade)
+    fun provideRecipeRepository(service: FoodRecipeService, recipeRemoteDataSource: RecipeRemoteDataSource, recipeLocalDataSource: RecipeLocalDataSource, recipeListMapper: RecipeDataListMapper, recipeDataMapper: RecipeDataMapper, dataMappersFacade: DataMappersFacade): RecipeRepository {
+        return RecipeRepositoryImpl(service, recipeRemoteDataSource, recipeLocalDataSource, recipeListMapper, recipeDataMapper, dataMappersFacade)
     }
 
     @Singleton
     @Provides
     fun provideSuggestionKeywordRepository(suggestionKeywordLocalDataSource: SuggestionKeywordLocalDataSource,
                                            suggestionKeywordRemoteDataSource: SuggestionKeywordRemoteDataSource,
-                                           mapper: DataMappersFacade) : SuggestionKeywordRepository{
+                                           mapper: DataMappersFacade): SuggestionKeywordRepository {
         return SuggestionKeywordRepositoryImpl(suggestionKeywordLocalDataSource, suggestionKeywordRemoteDataSource, mapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFoodRepository(foodRemoteDataSource: FoodRemoteDataSource, dataMappersFacade: DataMappersFacade): FoodRepository {
+        return FoodRepositoryImpl(foodRemoteDataSource, dataMappersFacade)
     }
 }
