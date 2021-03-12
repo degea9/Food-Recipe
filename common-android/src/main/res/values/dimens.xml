@@ -19,6 +19,7 @@
     <dimen name="_80dp">80dp</dimen>
     <dimen name="_150dp">150dp</dimen>
     <dimen name="_15sp">15sp</dimen>
+    <dimen name="_18sp">18sp</dimen>
     <dimen name="_20sp">20sp</dimen>
     <dimen name="search_text_size">@dimen/_15sp</dimen>
     <dimen name="instruction_bullet">24dp</dimen>
