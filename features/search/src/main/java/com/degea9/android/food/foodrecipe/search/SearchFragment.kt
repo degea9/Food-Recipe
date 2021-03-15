@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -23,7 +24,8 @@ import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
-class SearchFragment(override val coroutineContext: CoroutineContext = Dispatchers.Main) : BaseFragment(), CoroutineScope  {
+class SearchFragment : BaseFragment(), CoroutineScope  {
+    override val coroutineContext: CoroutineContext = Dispatchers.Main
 
     private lateinit var binding: FragmentSearchBinding
     private val searchViewModel: SearchViewModel by viewModels()
@@ -40,6 +42,10 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
 
     private var shouldNotifyTextChange= true
 
+    private var searchString: String = ""
+
+    private var shouldShowKeyboard = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,9 +59,39 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
         super.onViewCreated(view, savedInstanceState)
         setup()
         setUpObserver()
-        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
-        search(query)
-        binding.edtSearch.setText(query)
+        val isHaveSavedInstanceState = savedInstanceState?.getBoolean(IS_SAVE_INSTANCES_STATE, false)
+        if(isHaveSavedInstanceState == true){
+            restoreData(savedInstanceState)
+        }
+        else {
+            val category = arguments?.getString("searchString")
+            if(category.isNullOrEmpty()){
+                searchViewModel.getSearchHistory()
+            }
+            else {
+                shouldShowKeyboard = false
+                search(category)
+            }
+        }
+    }
+
+    private fun restoreData(data: Bundle?){
+        shouldNotifyTextChange =false
+        searchString = data?.getString(LAST_SEARCH_QUERY).orEmpty()
+        binding.edtSearch.setText(searchString)
+        search(searchString)
+        if(data?.getBoolean(IS_HISTORY_VISIBLE) == true){
+            state = State.HISTORY
+            searchViewModel.getSearchHistory()
+        }
+        else if(data?.getBoolean(IS_SUGGESTION_VISIBLE) == true){
+            state = State.SUGGESTION
+            searchViewModel.getSuggestKeyword(searchString, SUGGESTION_NUMBER)
+        }
+        else if(data?.getBoolean(IS_RESULT_VISIBLE) == true){
+            search(searchString)
+        }
+        shouldNotifyTextChange = true
     }
 
     private fun setupEditTextSearch(){
@@ -138,7 +174,6 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
             }
 
         }
-        searchViewModel.getSearchHistory()
     }
 
     private fun updateRepoListFromInput() {
@@ -186,8 +221,13 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putString(LAST_SEARCH_QUERY, binding.edtSearch.text.trim().toString())
+        outState.putBoolean(IS_SAVE_INSTANCES_STATE, true)
+        outState.putBoolean(IS_HISTORY_VISIBLE, binding.rvSearchHistory.isVisible)
+        outState.putBoolean(IS_RESULT_VISIBLE, binding.rvSearchResult.isVisible)
+        outState.putBoolean(IS_SUGGESTION_VISIBLE, binding.rvSearchSuggestion.isVisible )
+        super.onSaveInstanceState(outState)
+
     }
 
     private fun onSuggestionClick(query: String?){
@@ -203,13 +243,19 @@ class SearchFragment(override val coroutineContext: CoroutineContext = Dispatche
     override fun onResume() {
         super.onResume()
         binding.edtSearch.requestFocus()
-        showKeyboard()
+        if(shouldShowKeyboard){
+            showKeyboard()
+        }
     }
 
     companion object {
         private const val LAST_SEARCH_QUERY: String = "last_search_query"
         private const val DEFAULT_QUERY = ""
         private const val SUGGESTION_NUMBER = 5
+        private const val IS_SAVE_INSTANCES_STATE = "IS_SAVE_INSTANCES_STATE"
+        private const val IS_HISTORY_VISIBLE = "IS_HISTORY_VISIBLE"
+        private const val IS_RESULT_VISIBLE = "IS_RESULT_VISIBLE"
+        private const val IS_SUGGESTION_VISIBLE = "IS_SUGGESTION_VISIBLE"
     }
 
     enum class State {
