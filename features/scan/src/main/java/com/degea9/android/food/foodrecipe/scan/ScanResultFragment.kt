@@ -66,13 +66,13 @@ class ScanResultFragment(override val coroutineContext: CoroutineContext= Dispat
     }
     private fun onItemClick(recipe: Recipe){
         recipe.id.let {
-            findNavController().navigate(ScanResultFragmentDirections.actionScanResultFragmentToRecipeDetailFragment())
+            findNavController().navigate(ScanResultFragmentDirections.actionScanResultFragmentToRecipeDetailFragment(it))
         }
     }
 
     private fun onCategoryClick(category: String?){
         category?.let {
-            findNavController().navigate(ScanResultFragmentDirections.actionnScanResultFragmentToSearchFragment())
+            findNavController().navigate(ScanResultFragmentDirections.actionnScanResultFragmentToSearchFragment(it))
         }
 
     }
