@@ -1,11 +1,11 @@
 package com.degea9.foodrecipe.remote
 
+import com.degea9.android.foodrecipe.remote.response.ImageAnalysisResponse
 import com.degea9.android.foodrecipe.remote.response.SuggestionKeywordResponse
 import com.degea9.foodrecipe.remote.response.ListRecipeResponse
 import com.degea9.foodrecipe.remote.response.RecipeResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 interface FoodRecipeService {
 
@@ -52,6 +52,15 @@ interface FoodRecipeService {
         @Query("query") query: String,
         @Query("number") number: Int
     ): List<SuggestionKeywordResponse>
+
+    /**
+     * scan image and return recipe list
+     */
+    @Multipart
+    @POST("food/images/analyze")
+    suspend fun scanImage(
+            @Part file: MultipartBody.Part): ImageAnalysisResponse
+
 }
 
 

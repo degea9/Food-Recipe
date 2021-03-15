@@ -186,6 +186,23 @@ object Deps {
     // Leak Canary
     const val LEAK_CANARY =
         "com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY_VERSION}"
+
+    //navigation bar with center button
+    const val ZAGORI_NAVIGATION = "com.zagori:bottomnavbar:1.0.2"
+
+    //circle image
+    const val CIRCLE_IMAGE_VIEW = "de.hdodenhof:circleimageview:3.1.0"
+
+    // CameraX core library using camera2 implementation
+     const val CAMERA_X_CORE = "androidx.camera:camera-camera2:1.0.0-beta07"
+    // CameraX Lifecycle Library
+     const val CAMERA_X_LIFECYCLE = "androidx.camera:camera-lifecycle:1.0.0-beta07"
+    // CameraX View class
+     const val CAMERA_VIEW = "androidx.camera:camera-view:1.0.0-alpha14"
+
+    //Ted permission
+    const val TED_PERMISSION ="gun0912.ted:tedpermission:2.2.3"
+
 }
 
 object TestDeps {

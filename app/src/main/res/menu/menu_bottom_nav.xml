@@ -8,14 +8,15 @@
         android:title="@string/home"/>
 
     <item
+        android:id="@+id/nav_scan"
+        android:icon="@drawable/ic_meal_plan"
+        android:title="@string/scan"
+        />
+
+    <item
         android:id="@+id/nav_favorite"
         android:icon="@drawable/ic_home"
         android:title="@string/favourite"/>
 
-    <item
-        android:id="@+id/nav_meal_plan"
-        android:icon="@drawable/ic_meal_plan"
-        android:title="@string/meal_plan"
-        />
 
 </menu>
