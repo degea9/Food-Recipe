@@ -13,6 +13,7 @@ import com.degea9.android.foodrecipe.domain.scan.ScanImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +25,7 @@ class ScanViewModel @Inject constructor(private val scanImageUseCase: ScanImageU
     fun scanImage(uri: Uri){
         viewModelScope.launch(Dispatchers.IO) {
             val result = scanImageUseCase.scanImage(uri)
-            Log.d("AAAAAA", result.toString())
+            Timber.d("Analysis Result: ${result.toString()}")
             result?.let {
                 _imageAnalysisLiveData.postValue(it)
             }
