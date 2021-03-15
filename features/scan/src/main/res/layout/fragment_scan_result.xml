@@ -6,6 +6,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ScanResultFragment">
+        <LinearLayout
+            android:id="@+id/layout_loading"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/_20sp"
+                android:text="@string/analyzing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_loading_dot"
+                android:textSize="@dimen/_20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:layout_marginHorizontal="@dimen/_16dp"
             android:layout_marginTop="@dimen/_20dp"
