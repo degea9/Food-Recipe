@@ -1,5 +1,6 @@
 package com.degea9.android.food.foodrecipe.scan
 
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,8 +31,8 @@ class ScanFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentScanBinding
 
-    private lateinit var outputDirectory: File
-    private lateinit var cameraExecutor: ExecutorService
+    private var outputDirectory: File? = null
+    private var cameraExecutor: ExecutorService?= null
     private var imageUri: Uri? = null
 
     override fun onCreateView(
@@ -52,6 +53,9 @@ class ScanFragment : BaseFragment(), View.OnClickListener {
         binding.btnTryAgain.setOnClickListener(this)
         binding.btnAccept.setOnClickListener(this)
 
+        setupCamera()
+    }
+    private fun setupCamera(){
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
         startCamera()
@@ -132,38 +136,40 @@ class ScanFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun takePhoto() {
-        binding.btnCameraCapture.isEnabled = false
-        // Get a stable reference of the modifiable image capture use case
-        val imageCapture = imageCapture ?: return
+        outputDirectory?.let {
+            binding.btnCameraCapture.isEnabled = false
+            // Get a stable reference of the modifiable image capture use case
+            val imageCapture = imageCapture ?: return
 
-        // Create time-stamped output file to hold the image
-        val photoFile = File(
-            outputDirectory,
-            SimpleDateFormat(
-                FILENAME_FORMAT, Locale.US
-            ).format(System.currentTimeMillis()) + ".jpg"
-        )
+            // Create time-stamped output file to hold the image
+            val photoFile = File(
+                    it,
+                    SimpleDateFormat(
+                            FILENAME_FORMAT, Locale.US
+                    ).format(System.currentTimeMillis()) + ".jpg"
+            )
 
-        // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+            // Create output options object which contains file + metadata
+            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
-        imageCapture.takePicture(
-            outputOptions,
-            ContextCompat.getMainExecutor(requireContext()),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onError(exc: ImageCaptureException) {
-                    Timber.e("Photo capture failed: ${exc.message}")
-                }
+            // Set up image capture listener, which is triggered after photo has
+            // been taken
+            imageCapture.takePicture(
+                    outputOptions,
+                    ContextCompat.getMainExecutor(requireContext()),
+                    object : ImageCapture.OnImageSavedCallback {
+                        override fun onError(exc: ImageCaptureException) {
+                            Timber.e("Photo capture failed: ${exc.message}")
+                        }
 
-                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    imageUri = Uri.fromFile(photoFile)
-                    imageUri?.let { uri ->
-                        displayPreviewImage(uri)
-                    }
-                }
-            })
+                        override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                            imageUri = Uri.fromFile(photoFile)
+                            imageUri?.let { uri ->
+                                displayPreviewImage(uri)
+                            }
+                        }
+                    })
+        }
     }
 
     private fun acceptImage() {
@@ -172,9 +178,20 @@ class ScanFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        cameraExecutor.shutdown()
+        cameraExecutor?.shutdown()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
+
     }
 
     companion object {
