@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_scan"
+    app:startDestination="@id/scanFragment">
+    <fragment android:id="@+id/scanFragment"
+        android:name="com.degea9.android.food.foodrecipe.scan.ScanFragment"
+        android:label="fragment_scan">
+        <action android:id="@+id/action_scanFragment_to_scanResult"
+            app:popUpTo="@id/scanFragment"
+            app:destination="@id/scanResultFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/scanResultFragment"
+        android:name="com.degea9.android.food.foodrecipe.scan.ScanResultFragment"
+        android:label="fragment_scan_result">
+        <argument
+            android:name="image_uri"
+            app:argType="android.net.Uri"
+            />
+        <action android:id="@+id/action_scanResultFragment_to_recipeDetailFragment"
+            app:destination="@+id/recipeDetailFragment"/>
+
+        <action android:id="@+id/actionn_scanResultFragment_to_searchFragment"
+            app:destination="@+id/searchFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.degea9.android.food.foodrecipe.recipe_detail.RecipeDetailFragment"
+        android:label="fragment_recipe_detail" >
+
+        <argument
+            android:name="recipeID"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.degea9.android.food.foodrecipe.search.SearchFragment"
+        android:label="fragment_search" >
+
+        <argument android:name="searchString"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_searchFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+</navigation>

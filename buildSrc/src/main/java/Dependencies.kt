@@ -27,6 +27,10 @@ object Deps {
     const val SWIPE_REFRESH_LAYOUT =
         "androidx.swiperefreshlayout:swiperefreshlayout:${Version.SWIPE_REFRESH_LAYOUT_VERSION}"
 
+    //PAGING 3
+    const val PAGING_RUNTIME = "androidx.paging:paging-runtime:${Version.PAGING_VERSION}"
+    const val PAGING_RUNTIME_KTX =  "androidx.paging:paging-runtime-ktx:${Version.PAGING_VERSION}"
+
 
     // Lifecycle, ViewModel and LiveData
 
@@ -111,8 +115,8 @@ object Deps {
 
     // Retrofit
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Version.RETROFIT_VERSION}"
-    const val RETROFIT_GSON_CONVERTER =
-        "com.squareup.retrofit2:converter-gson:${Version.RETROFIT_VERSION}"
+    const val RETROFIT_MOSHI_CONVERTER =
+        "com.squareup.retrofit2:converter-moshi:${Version.RETROFIT_VERSION}"
     const val RETROFIT_RX_JAVA2_ADAPTER = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
     const val RETROFIT_RX_JAVA3_ADAPTER =
         "com.squareup.retrofit2:adapter-rxjava3:${Version.RETROFIT_RXJAVA3_ADAPTER}"
@@ -122,8 +126,20 @@ object Deps {
 
     const val OK_HTTP3 = "com.squareup.okhttp3:okhttp:${Version.OK_HTTP3_VERSION}"
 
-    // Gson
-    const val GSON = "com.google.code.gson:gson:${Version.GSON_VERSION}"
+    //http logging
+    val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Version.OK_HTTP3_VERSION}"
+
+    //epoxy
+    const val EPOXY = "com.airbnb.android:epoxy:${Version.EPOXY_VERSION}"
+    //epoxy paging
+    const val EPOXY_PAGING3 = "com.airbnb.android:epoxy-paging3:${Version.EPOXY_VERSION}"
+    //EPOXY annotationProcessor
+    const val EPOXY_ANNOTATION_PROCESSOR = "com.airbnb.android:epoxy-processor:${Version.EPOXY_VERSION}"
+    //EPOXY BINDING
+    const val EPOXY_BINDING = "com.airbnb.android:epoxy-databinding:${Version.EPOXY_VERSION}"
+
+    // MOSHI
+    const val MOSHI = "com.squareup.moshi:moshi:${Version.MOSHI_VERSION}"
 
     // Room
     const val ROOM_RUNTIME = "androidx.room:room-runtime:${Version.ROOM_VERSION}"
@@ -142,6 +158,13 @@ object Deps {
     const val GLIDE = "com.github.bumptech.glide:glide:${Version.GLIDE_VERSION}"
     const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${Version.GLIDE_VERSION}"
 
+    //facebook shimmer
+    const val FB_SHIMMER = "com.facebook.shimmer:shimmer:${Version.FB_SHIMMER_VERSION}"
+
+    //inline activity result
+    const val INLINE_ACTIVITY_RESULT = "com.github.florent37:inline-activity-result-kotlin:${Version.INLINE_ACTIVITY_RESULT_VERSION}"
+
+
     // Lottie
     const val LOTTIE = "com.airbnb.android:lottie:${Version.LOTTIE_VERSION}"
 
@@ -157,9 +180,29 @@ object Deps {
     const val CHUCKER_RELEASE_NO_OP =
         "com.github.chuckerteam.chucker:library-no-op:${Version.CHUCKER_VERSION}"
 
+    //timber
+    const val  TIMBER = "com.jakewharton.timber:timber:${Version.TIMBER_VERSION}"
+
     // Leak Canary
     const val LEAK_CANARY =
         "com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY_VERSION}"
+
+    //navigation bar with center button
+    const val ZAGORI_NAVIGATION = "com.zagori:bottomnavbar:1.0.2"
+
+    //circle image
+    const val CIRCLE_IMAGE_VIEW = "de.hdodenhof:circleimageview:3.1.0"
+
+    // CameraX core library using camera2 implementation
+     const val CAMERA_X_CORE = "androidx.camera:camera-camera2:1.0.0-beta07"
+    // CameraX Lifecycle Library
+     const val CAMERA_X_LIFECYCLE = "androidx.camera:camera-lifecycle:1.0.0-beta07"
+    // CameraX View class
+     const val CAMERA_VIEW = "androidx.camera:camera-view:1.0.0-alpha14"
+
+    //Ted permission
+    const val TED_PERMISSION ="gun0912.ted:tedpermission:2.2.3"
+
 }
 
 object TestDeps {
@@ -191,9 +234,6 @@ object TestDeps {
     // MockWebServer
     const val MOCK_WEB_SERVER =
         "com.squareup.okhttp3:mockwebserver:${TestVersion.mockWebServerVersion}"
-
-    // Gson
-    const val GSON = "com.google.code.gson:gson:${Version.GSON_VERSION}"
 
     // MockK
     const val MOCK_K = "io.mockk:mockk:${TestVersion.mockKVersion}"

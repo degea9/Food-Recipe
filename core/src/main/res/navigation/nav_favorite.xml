@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_favorite"
+    app:startDestination="@id/favoriteFragment">
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.degea9.android.food.foodrecipe.favorite.FavoriteFragment"
+        android:label="fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.degea9.android.food.foodrecipe.recipe_detail.RecipeDetailFragment"
+        android:label="fragment_recipe_detail" >
+
+        <argument
+            android:name="recipeID"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>

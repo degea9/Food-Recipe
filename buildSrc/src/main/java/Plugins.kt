@@ -9,9 +9,13 @@ object Plugins {
     const val GIT_HOOKS = "plugins.git-hooks"
 
     const val CLASSPATH_GRADLE = "com.android.tools.build:gradle:${PluginVersion.GRADLE_VERSION}"
+    const val CLASSPATH_KTLINT =
+        "org.jlleitschuh.gradle:ktlint-gradle:${PluginVersion.KTLINT_VERSION}"
+    const val CLASSPATH_DAGGER_HILT =
+        "com.google.dagger:hilt-android-gradle-plugin:${Version.DAGGER_HILT_VERSION}"
 
-    const val CLASSPATH_MP_CHART = "com.github.dcendents:android-maven-gradle-plugin:2.1"
-
+    const val CLASSPATH_NAV_SAFE_ARGS =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${PluginVersion.NAV_SAFE_ARGS_VERSION}"
     /*
         Module Level
      */

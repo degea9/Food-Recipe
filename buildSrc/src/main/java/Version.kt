@@ -2,7 +2,7 @@ object PluginVersion {
     const val KOTLIN_VERSION = "1.4.20"
     const val GRADLE_VERSION = "4.1.2"
 
-    const val NAV_SAFE_ARGS_VERSION = "2.3.0"
+    const val NAV_SAFE_ARGS_VERSION = "2.3.3"
     const val KTLINT_VERSION = "9.3.0"
     const val DETEKT_VERSION = "1.10.0"
 }
@@ -62,14 +62,14 @@ object Version {
     const val MOCK_WEB_SERVER_VERSION = "3.7.0"
 
     //Gson
-    const val GSON_VERSION = "2.8.4"
+    const val MOSHI_VERSION = "1.11.0"
 
     // Room
     const val ROOM_VERSION = "2.3.0-alpha02"
 
     // Dagger
     const val DAGGER_VERSION = "2.28"
-    const val DAGGER_HILT_VERSION = "2.28.1-alpha"
+    const val DAGGER_HILT_VERSION = "2.31.2-alpha"
     const val DAGGER_HILT_ANDRIODX = "1.0.0-alpha02"
 
     // RxJava2
@@ -104,6 +104,17 @@ object Version {
     // Leak Canary
     const val LEAK_CANARY_VERSION = "2.4"
 
+    //Epoxy version
+    const val EPOXY_VERSION = "4.4.0"
+
+    //PAGING 3
+    const val PAGING_VERSION = "3.0.0-alpha11"
+
+    //FB shimmer
+    const val FB_SHIMMER_VERSION = "0.5.0"
+
+    const val INLINE_ACTIVITY_RESULT_VERSION = "1.0.4"
+
 }
 
 object TestVersion {
@@ -135,4 +146,5 @@ object TestVersion {
 
     // MockK
     const val mockKVersion = "1.10.0"
+
 }

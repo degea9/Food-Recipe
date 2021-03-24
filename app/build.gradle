@@ -1,12 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android-extensions'
+    id "androidx.navigation.safeargs.kotlin"
+
 }
 
 android {
     compileSdkVersion(AndroidVersion.COMPILE_SDK_VERSION)
     buildToolsVersion "30.0.2"
-
+    buildFeatures {
+        dataBinding = true
+    }
     defaultConfig {
         applicationId = AndroidVersion.APPLICATION_ID
         minSdkVersion(AndroidVersion.MIN_SDK_VERSION)
@@ -36,6 +43,39 @@ dependencies {
 
     //project dependencies
     implementation(project(Modules.featureHome))
+    implementation(project(Modules.featureFavorite))
+    implementation(project(Modules.featureSearch))
+    implementation(project(Modules.featureScan))
+    implementation(project(Modules.featureCategoryRecipes))
+    implementation(project(Modules.featureRecipeDetail))
+    implementation(project(Modules.featureSearch))
+    implementation(project(Modules.core))
+    implementation(project(Modules.domain))
+    implementation(project(Modules.repository))
+    implementation(project(Modules.remote))
+    implementation(project(Modules.local))
+
+    // Room
+    implementation(Deps.ROOM_RUNTIME)
+    // For Kotlin use kapt instead of annotationProcessor
+    kapt(Deps.ROOM_COMPILER)
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation(Deps.ROOM_KTX)
+
+    // Dagger Hilt
+    implementation(Deps.DAGGER_HILT_ANDROID)
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt(Deps.DAGGER_HILT_COMPILER)
+    implementation(Deps.DAGGER_HILT_VIEWMODEL)
+    kapt(Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER)
+
+    // Navigation Components
+    implementation(Deps.NAVIGATION_FRAGMENT)
+    implementation(Deps.NAVIGATION_UI)
+    implementation(Deps.NAVIGATION_RUNTIME)
+
+    //TIMBER
+    implementation(Deps.TIMBER)
 
     implementation (Deps.KOTLIN)
     implementation (Deps.ANDROIDX_CORE_KTX)
@@ -45,4 +85,10 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation (TestDeps.ANDROIDX_JUNIT)
     androidTestImplementation (TestDeps.ANDROIDX_ESPRESSO)
+
+    //Navigation bar
+    implementation (Deps.ZAGORI_NAVIGATION)
+
+    //Ted permission
+    implementation(Deps.TED_PERMISSION)
 }

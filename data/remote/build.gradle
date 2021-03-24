@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion(AndroidVersion.COMPILE_SDK_VERSION)
+    buildToolsVersion "30.0.3"
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+//    dataBinding {
+//        enabled = true
+//    }
+    defaultConfig {
+
+        buildConfigField("String", "BASE_URL_API", "\"https://api.spoonacular.com/\"")
+        buildConfigField("String", "BASE_URL", "\"https://spoonacular.com/\"")
+        buildConfigField("String", "SPOONACULAR_API_KEY", properties.getProperty("spoonacular.key"))
+
+        minSdkVersion(AndroidVersion.MIN_SDK_VERSION)
+        targetSdkVersion(AndroidVersion.TARGET_SDK_VERSION)
+        versionCode  = AndroidVersion.VERSION_CODE
+        versionName = AndroidVersion.VERSION_NAME
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    //KOTLIN
+    implementation (Deps.KOTLIN)
+    //NETWORK
+    implementation(Deps.RETROFIT)
+    implementation(Deps.RETROFIT_MOSHI_CONVERTER)
+    //HTTP LOGGING
+    api(Deps.httpLoggingInterceptor)
+    // Dagger Hilt
+    implementation(Deps.DAGGER_HILT_ANDROID)
+    kapt(Deps.DAGGER_HILT_COMPILER)
+
+}

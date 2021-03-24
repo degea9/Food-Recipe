@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Food Recipe</string>
+    <string name="home">Home</string>
+    <string name="favourite">Favourite</string>
+    <string name="scan">Scan</string>
+    <string name="permission_denied">If permissions do not be granted, you can not use this service</string>
 </resources>
